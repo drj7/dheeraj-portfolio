@@ -169,33 +169,39 @@ export default function Home() {
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <GlitchCard title="The Lazy Coder" className="h-full">
+            <GlitchCard title="Enterprise To-Do List" className="h-full">
               <p className="text-muted-foreground mb-4">
-                An AI agent that detects when I'm procrastinating and automatically generates the boilerplate code I was avoiding.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Python</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">OpenAI API</span>
-              </div>
-            </GlitchCard>
-
-            <GlitchCard title="Meme Generator 9000" className="h-full">
-              <p className="text-muted-foreground mb-4">
-                A RAG-based system that indexes my entire life's failures and turns them into relatable memes for LinkedIn.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">LangChain</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Vector DB</span>
-              </div>
-            </GlitchCard>
-
-            <GlitchCard title="Infinite Portfolio" className="h-full">
-              <p className="text-muted-foreground mb-4">
-                This website. It's actually being updated in real-time by an AI that thinks it's me. (Just kidding... or am I?)
+                A simple checklist app powered by 12 microservices, a Kafka event bus, and a Kubernetes cluster. Over-engineering at its finest.
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
                 <span className="text-xs border border-primary/30 px-2 py-1 text-primary">React</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Tailwind</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Node.js</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">PostgreSQL</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Docker</span>
+              </div>
+            </GlitchCard>
+
+            <GlitchCard title="The 'Scale' Social Network" className="h-full">
+              <p className="text-muted-foreground mb-4">
+                A MERN stack social platform designed to handle millions of users, currently hosting just me and my mom. 99.99% uptime (when I'm awake).
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">MongoDB</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Express</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">React</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Node.js</span>
+              </div>
+            </GlitchCard>
+
+            <GlitchCard title="E-Commerce for Time Travelers" className="h-full">
+              <p className="text-muted-foreground mb-4">
+                A Next.js storefront with a temporal database. It handles race conditions that haven't happened yet and processes refunds from the future.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Next.js</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">GraphQL</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Stripe</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Redis</span>
               </div>
             </GlitchCard>
           </div>
