@@ -220,8 +220,8 @@ export default function Home() {
           
           <div className="inline-block p-1 bg-gradient-to-r from-primary to-pink-500">
             <div className="bg-black p-8">
-              <p className="text-2xl font-display text-white mb-6">dheerajyadla@gmail.com</p>
-              <div className="flex justify-center gap-4">
+              <p className="text-xl md:text-2xl font-display text-white mb-6 break-all">dheerajyadla@gmail.com</p>
+              <div className="flex flex-col md:flex-row justify-center gap-4">
                 <Button className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full">
                   SEND_EMAIL
                 </Button>
