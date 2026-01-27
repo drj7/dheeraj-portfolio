@@ -123,7 +123,7 @@ export default function Home() {
               </h2>
               <div className="space-y-4 font-mono text-muted-foreground">
                 <p>
-                  <strong className="text-white">Day 1:</strong> I graduated with a degree in Computer Science. I thought I was ready to change the world with Java.
+                  <strong className="text-white">Day 1:</strong> I didn't actually have a degree in Computer Science. But I thought I was ready to change the world with Java anyway.
                 </p>
                 <p>
                   <strong className="text-white">Day 1,402:</strong> After debugging a NullPointerException for 6 hours, I realized there had to be a better way.
