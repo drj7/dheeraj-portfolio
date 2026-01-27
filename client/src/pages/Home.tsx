@@ -3,9 +3,26 @@ import { Terminal } from "@/components/Terminal";
 import { Button } from "@/components/ui/button";
 import { Coffee, Cpu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
   const [donationGlitch, setDonationGlitch] = useState(false);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("dheerajyadla@gmail.com");
+    toast.success("Email copied to clipboard!");
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = "mailto:dheerajyadla@gmail.com";
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -87,14 +104,20 @@ export default function Home() {
             <div className="flex gap-4">
               <Button 
                 className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none border-2 border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all"
-                onClick={() => addLog("Executing: contact_me.sh")}
+                onClick={() => {
+                  addLog("Executing: contact_me.sh");
+                  scrollToSection("contact");
+                }}
               >
                 INITIATE_CONTACT
               </Button>
               <Button 
                 variant="outline" 
                 className="font-mono rounded-none border-primary/50 text-primary hover:bg-primary/10"
-                onClick={() => addLog("Loading: resume.pdf... File corrupted. Just kidding.")}
+                onClick={() => {
+                  addLog("Accessing: /var/log/bio.txt");
+                  scrollToSection("about");
+                }}
               >
                 VIEW_LOGS
               </Button>
@@ -236,10 +259,17 @@ export default function Home() {
             <div className="bg-black p-8">
               <p className="text-xl md:text-2xl font-display text-white mb-6 break-all">dheerajyadla@gmail.com</p>
               <div className="flex flex-col md:flex-row justify-center gap-4">
-                <Button className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full">
+                <Button 
+                  className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full"
+                  onClick={handleEmailClick}
+                >
                   SEND_EMAIL
                 </Button>
-                <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 font-mono rounded-none w-full">
+                <Button 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-primary/10 font-mono rounded-none w-full"
+                  onClick={handleCopyEmail}
+                >
                   COPY_PGP_KEY
                 </Button>
               </div>
@@ -252,8 +282,9 @@ export default function Home() {
       <footer className="py-8 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
         <Button 
           variant="outline" 
+          onClick={() => toast("Thanks for the thought! My GPU is full for now.")}
           className={`
-            border-primary/50 hover:bg-primary/10 transition-all duration-100
+            border-primary/50 hover:bg-primary/10 transition-all duration-100 cursor-pointer
             ${donationGlitch ? "text-pink-500 border-pink-500 animate-pulse scale-105" : "text-primary"}
           `}
         >
