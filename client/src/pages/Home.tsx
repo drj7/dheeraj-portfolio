@@ -1,9 +1,12 @@
 import { GlitchCard } from "@/components/GlitchCard";
 import { Terminal } from "@/components/Terminal";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun } from "lucide-react";
 import { useState } from "react";
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
   const [terminalLines, setTerminalLines] = useState([
     "Initializing system...",
     "Loading developer_skills.json...",
@@ -24,10 +27,19 @@ export default function Home() {
           <div className="font-display text-2xl text-primary glitch-text" data-text="DHEERAJ_YADLA">
             DHEERAJ_YADLA
           </div>
-          <div className="hidden md:flex gap-8 font-mono text-sm">
+          <div className="hidden md:flex gap-8 font-mono text-sm items-center">
             <a href="#about" className="hover:text-primary transition-colors">[ ABOUT ]</a>
             <a href="#projects" className="hover:text-primary transition-colors">[ PROJECTS ]</a>
             <a href="#contact" className="hover:text-primary transition-colors">[ CONTACT ]</a>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleTheme}
+              className="hover:bg-primary/20 hover:text-primary rounded-none"
+              title={theme === "dark" ? "Switch to Blinding CRT Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
       </nav>

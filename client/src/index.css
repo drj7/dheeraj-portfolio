@@ -46,56 +46,63 @@
 }
 
 :root {
-  /* Retro Terminal Green & Black Base */
-  --background: oklch(0.1 0 0); /* Almost black */
-  --foreground: oklch(0.85 0.15 140); /* Terminal Green */
+  /* Blinding CRT Light Mode (Default in CSS, but we'll swap logic) */
+  /* Actually, since we want Dark to be default, we should keep :root as dark or make :root light and .dark as dark. 
+     The template uses :root for light and .dark for dark usually. 
+     But my previous edit made :root dark. 
+     I will revert :root to be the "Light Mode" (Blinding CRT) and ensure .dark is the "Retro Terminal".
+  */
   
-  --card: oklch(0.15 0 0);
-  --card-foreground: oklch(0.85 0.15 140);
+  /* BLINDING CRT MODE */
+  --background: oklch(0.98 0.01 100); /* Blinding White/Yellowish */
+  --foreground: oklch(0.2 0.05 140); /* Dark Green Text */
   
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.85 0.15 140);
+  --card: oklch(0.95 0.02 100);
+  --card-foreground: oklch(0.2 0.05 140);
   
-  --primary: oklch(0.7 0.2 140); /* Bright Terminal Green */
-  --primary-foreground: oklch(0.1 0 0);
+  --popover: oklch(0.95 0.02 100);
+  --popover-foreground: oklch(0.2 0.05 140);
   
-  --secondary: oklch(0.2 0.05 140); /* Dark Green */
-  --secondary-foreground: oklch(0.85 0.15 140);
+  --primary: oklch(0.4 0.15 140); /* Darker Green for contrast on white */
+  --primary-foreground: oklch(0.98 0.01 100);
   
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.6 0.1 140);
+  --secondary: oklch(0.9 0.05 140);
+  --secondary-foreground: oklch(0.2 0.05 140);
   
-  --accent: oklch(0.25 0.05 140);
-  --accent-foreground: oklch(0.9 0.2 140);
+  --muted: oklch(0.9 0.02 100);
+  --muted-foreground: oklch(0.5 0.05 140);
   
-  --destructive: oklch(0.6 0.2 20); /* Red error */
-  --destructive-foreground: oklch(0.95 0 0);
+  --accent: oklch(0.85 0.05 140);
+  --accent-foreground: oklch(0.2 0.05 140);
   
-  --border: oklch(0.3 0.1 140);
-  --input: oklch(0.2 0.05 140);
-  --ring: oklch(0.7 0.2 140);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0 0);
   
-  --radius: 0rem; /* Sharp edges for terminal feel */
+  --border: oklch(0.8 0.05 140);
+  --input: oklch(0.8 0.05 140);
+  --ring: oklch(0.4 0.15 140);
   
-  /* AI Glitch Colors */
-  --chart-1: oklch(0.7 0.2 320); /* Hot Pink */
-  --chart-2: oklch(0.8 0.15 200); /* Cyan */
-  --chart-3: oklch(0.75 0.15 280); /* Purple */
-  --chart-4: oklch(0.9 0.1 100); /* Yellow */
-  --chart-5: oklch(0.6 0.2 140); /* Green */
+  --radius: 0rem;
   
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.85 0.15 140);
-  --sidebar-primary: oklch(0.7 0.2 140);
-  --sidebar-primary-foreground: oklch(0.1 0 0);
-  --sidebar-accent: oklch(0.2 0.05 140);
-  --sidebar-accent-foreground: oklch(0.9 0.2 140);
-  --sidebar-border: oklch(0.3 0.1 140);
-  --sidebar-ring: oklch(0.7 0.2 140);
+  /* AI Glitch Colors - slightly darker for visibility on light bg */
+  --chart-1: oklch(0.6 0.2 320);
+  --chart-2: oklch(0.6 0.15 200);
+  --chart-3: oklch(0.6 0.15 280);
+  --chart-4: oklch(0.7 0.15 100);
+  --chart-5: oklch(0.5 0.2 140);
+  
+  --sidebar: oklch(0.95 0.02 100);
+  --sidebar-foreground: oklch(0.2 0.05 140);
+  --sidebar-primary: oklch(0.4 0.15 140);
+  --sidebar-primary-foreground: oklch(0.98 0.01 100);
+  --sidebar-accent: oklch(0.9 0.05 140);
+  --sidebar-accent-foreground: oklch(0.2 0.05 140);
+  --sidebar-border: oklch(0.8 0.05 140);
+  --sidebar-ring: oklch(0.4 0.15 140);
 }
 
 .dark {
-  /* Same as root since we are going for a dark theme by default */
+  /* Retro Terminal Green & Black Base (The Original Dark Mode) */
   --background: oklch(0.1 0 0);
   --foreground: oklch(0.85 0.15 140);
   --card: oklch(0.15 0 0);
@@ -115,6 +122,13 @@
   --border: oklch(0.3 0.1 140);
   --input: oklch(0.2 0.05 140);
   --ring: oklch(0.7 0.2 140);
+  
+  --chart-1: oklch(0.7 0.2 320);
+  --chart-2: oklch(0.8 0.15 200);
+  --chart-3: oklch(0.75 0.15 280);
+  --chart-4: oklch(0.9 0.1 100);
+  --chart-5: oklch(0.6 0.2 140);
+  
   --sidebar: oklch(0.12 0 0);
   --sidebar-foreground: oklch(0.85 0.15 140);
   --sidebar-primary: oklch(0.7 0.2 140);
