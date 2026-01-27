@@ -8,6 +8,10 @@ export default function Home() {
   const [donationGlitch, setDonationGlitch] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (Math.random() > 0.7) {
         setDonationGlitch(true);

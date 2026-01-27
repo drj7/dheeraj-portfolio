@@ -8,11 +8,11 @@ interface TerminalProps {
 
 export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const [lines, setLines] = useState<string[]>(initialLines);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   }, [lines]);
 
@@ -30,7 +30,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
         <div className="text-primary/50 text-xs">user@dheeraj-pc:~</div>
       </div>
       
-      <div className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide">
+      <div ref={containerRef} className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide">
         {lines.map((line, i) => (
           <div key={i} className="text-primary/80 break-words">
             <span className="text-green-500 mr-2">$</span>
@@ -41,7 +41,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
           <span className="text-green-500 mr-2">$</span>
           <span className="w-2 h-4 bg-primary inline-block" />
         </div>
-        <div ref={bottomRef} />
+
       </div>
     </div>
   );
