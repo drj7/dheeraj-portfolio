@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "human";
 
 interface ThemeContextType {
   theme: Theme;
@@ -31,11 +31,8 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    root.classList.remove("light", "dark", "human");
+    root.classList.add(theme);
 
     if (switchable) {
       localStorage.setItem("theme", theme);
@@ -44,12 +41,17 @@ export function ThemeProvider({
 
   const toggleTheme = switchable
     ? () => {
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
+        setTheme(prev => {
+          if (prev === "human") return "dark";
+          return prev === "light" ? "dark" : "light";
+        });
       }
     : undefined;
 
+  const setHumanMode = () => setTheme("human");
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, switchable }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, switchable, setHumanMode } as any}>
       {children}
     </ThemeContext.Provider>
   );

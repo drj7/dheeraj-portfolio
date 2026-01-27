@@ -139,6 +139,49 @@
   --sidebar-ring: oklch(0.7 0.2 140);
 }
 
+.human {
+  /* Boring Corporate Blue & Gray */
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.2 0.02 260);
+  
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 260);
+  
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 260);
+  
+  --primary: oklch(0.4 0.15 260); /* Corporate Blue */
+  --primary-foreground: oklch(0.98 0 0);
+  
+  --secondary: oklch(0.95 0.02 260);
+  --secondary-foreground: oklch(0.2 0.02 260);
+  
+  --muted: oklch(0.95 0.02 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  
+  --accent: oklch(0.95 0.02 260);
+  --accent-foreground: oklch(0.2 0.02 260);
+  
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  
+  --border: oklch(0.9 0.02 260);
+  --input: oklch(0.9 0.02 260);
+  --ring: oklch(0.4 0.15 260);
+  
+  --radius: 0.5rem; /* Rounded corners for safety */
+  
+  --font-mono: "Inter", sans-serif; /* No more monospace */
+  --font-display: "Inter", sans-serif; /* Boring font */
+  
+  /* No glitch colors, just shades of gray/blue */
+  --chart-1: oklch(0.4 0.15 260);
+  --chart-2: oklch(0.5 0.15 260);
+  --chart-3: oklch(0.6 0.15 260);
+  --chart-4: oklch(0.7 0.15 260);
+  --chart-5: oklch(0.8 0.15 260);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
