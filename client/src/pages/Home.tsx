@@ -2,10 +2,21 @@ import { GlitchCard } from "@/components/GlitchCard";
 import { Terminal } from "@/components/Terminal";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import { Coffee, Cpu, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [donationGlitch, setDonationGlitch] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        setDonationGlitch(true);
+        setTimeout(() => setDonationGlitch(false), 200 + Math.random() * 800);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
   const { theme, toggleTheme } = useTheme();
   const [terminalLines, setTerminalLines] = useState([
     "Initializing system...",
@@ -235,7 +246,26 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono">
+      <footer className="py-8 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
+        <Button 
+          variant="outline" 
+          className={`
+            border-primary/50 hover:bg-primary/10 transition-all duration-100
+            ${donationGlitch ? "text-pink-500 border-pink-500 animate-pulse scale-105" : "text-primary"}
+          `}
+        >
+          {donationGlitch ? (
+            <>
+              <Cpu className="mr-2 h-4 w-4 animate-spin" />
+              DONATE_GPU_CREDITS
+            </>
+          ) : (
+            <>
+              <Coffee className="mr-2 h-4 w-4" />
+              BUY_ME_A_COFFEE
+            </>
+          )}
+        </Button>
         <p>
           © 2026 Dheeraj Yadla. Built with <span className="text-pink-500">♥</span> and a lot of prompts.
         </p>
