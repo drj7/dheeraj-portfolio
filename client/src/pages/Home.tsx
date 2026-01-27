@@ -70,7 +70,7 @@ export default function Home() {
             <div className="inline-block px-3 py-1 border border-primary/50 text-xs font-mono text-primary bg-primary/10">
               SYSTEM_STATUS: ONLINE
             </div>
-            <h1 className="text-5xl md:text-7xl font-display leading-none">
+            <h1 className="text-3xl md:text-5xl font-display leading-tight">
               SOFTWARE<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">ENGINEER</span><br />
               TURNED<br />
