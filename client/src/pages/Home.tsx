@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-black">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b border-primary/20 bg-black/80 backdrop-blur-sm">
+      <nav className="fixed top-0 w-full z-50 border-b border-primary/20 bg-background/95 backdrop-blur-sm transition-colors duration-300">
         <div className="container flex items-center justify-between h-16">
           <div className="font-display text-2xl text-primary glitch-text" data-text="DHEERAJ_YADLA">
             DHEERAJ_YADLA
