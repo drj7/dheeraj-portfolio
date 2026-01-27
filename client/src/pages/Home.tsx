@@ -34,7 +34,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-primary/20 bg-background/95 backdrop-blur-sm transition-colors duration-300">
         <div className="container flex items-center justify-between h-16">
-          <div className="font-display text-2xl text-primary glitch-text" data-text="DHEERAJ_YADLA">
+          <div className="font-display text-3xl md:text-4xl text-primary glitch-text font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]" data-text="DHEERAJ_YADLA">
             DHEERAJ_YADLA
           </div>
           <div className="hidden md:flex gap-8 font-mono text-sm items-center">
@@ -59,6 +59,14 @@ export default function Home() {
 
         <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
+            <div className="space-y-2 mb-6">
+              <div className="font-mono text-sm text-muted-foreground">
+                &gt; IDENTIFY_USER
+              </div>
+              <div className="font-display text-2xl md:text-3xl text-white bg-primary/10 inline-block px-4 py-2 border-l-4 border-primary">
+                [ DHEERAJ YADLA ]
+              </div>
+            </div>
             <div className="inline-block px-3 py-1 border border-primary/50 text-xs font-mono text-primary bg-primary/10">
               SYSTEM_STATUS: ONLINE
             </div>
