@@ -1,7 +1,8 @@
 import { GlitchCard } from "@/components/GlitchCard";
 import { Terminal } from "@/components/Terminal";
 import { Button } from "@/components/ui/button";
-import { Coffee, Cpu } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Coffee, Cpu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
+  const { theme, toggleTheme } = useTheme();
   const [terminalLines, setTerminalLines] = useState([
     "Initializing system...",
     "Loading developer_skills.json...",
@@ -41,6 +42,15 @@ export default function Home() {
             <a href="#about" className="hover:text-primary transition-colors">[ ABOUT ]</a>
             <a href="#projects" className="hover:text-primary transition-colors">[ PROJECTS ]</a>
             <a href="#contact" className="hover:text-primary transition-colors">[ CONTACT ]</a>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleTheme}
+              className="hover:bg-primary/20 hover:text-primary rounded-none"
+              title={theme === "dark" ? "Switch to Blinding CRT Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
       </nav>
@@ -51,52 +61,45 @@ export default function Home() {
           <img 
             src="/images/hero-bg.jpg" 
             alt="Background" 
-            className="w-full h-full object-cover grayscale contrast-125 brightness-50"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-background/90 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
         </div>
-        
-        <div className="container relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="inline-block border border-primary/50 px-4 py-1 text-sm font-mono text-primary animate-pulse">
-                SYSTEM_STATUS: ONLINE
-              </div>
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter">
-                SOFTWARE
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 glitch-text" data-text="ENGINEER">
-                  ENGINEER
-                </span>
-                TURNED
-                <span className="block text-primary font-display">
-                  AI_WHISPERER
-                </span>
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-lg">
-                I used to write thousands of lines of code to center a div. Now I ask the AI nicely and it builds me a spaceship.
-              </p>
-              <div className="flex gap-4 pt-4">
-                <Button 
-                  className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none text-lg px-8 py-6"
-                  onClick={() => addLog("Executing: contact_me.sh")}
-                >
-                  INITIATE_CONTACT
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-primary text-primary hover:bg-primary/10 font-mono rounded-none text-lg px-8 py-6"
-                  onClick={() => addLog("Loading: resume.pdf... File corrupted. Just kidding.")}
-                >
-                  VIEW_LOGS
-                </Button>
-              </div>
-            </div>
 
-            <div className="relative hidden md:block">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 opacity-20 blur-xl animate-pulse" />
-              <Terminal initialLines={terminalLines} className="relative z-10" />
+        <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="inline-block px-3 py-1 border border-primary/50 text-xs font-mono text-primary bg-primary/10">
+              SYSTEM_STATUS: ONLINE
             </div>
+            <h1 className="text-5xl md:text-7xl font-display leading-none">
+              SOFTWARE<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">ENGINEER</span><br />
+              TURNED<br />
+              <span className="glitch-text text-pink-500" data-text="AI_WHISPERER">AI_WHISPERER</span>
+            </h1>
+            <p className="text-lg text-muted-foreground font-mono max-w-xl">
+              I used to write thousands of lines of code to center a div. 
+              Now I ask the AI nicely and it builds me a spaceship.
+            </p>
+            <div className="flex gap-4">
+              <Button 
+                className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none border-2 border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all"
+                onClick={() => addLog("Executing: contact_me.sh")}
+              >
+                INITIATE_CONTACT
+              </Button>
+              <Button 
+                variant="outline" 
+                className="font-mono rounded-none border-primary/50 text-primary hover:bg-primary/10"
+                onClick={() => addLog("Loading: resume.pdf... File corrupted. Just kidding.")}
+              >
+                VIEW_LOGS
+              </Button>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <Terminal initialLines={terminalLines} />
           </div>
         </div>
       </section>
