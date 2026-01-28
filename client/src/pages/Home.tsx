@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 export default function Home() {
   const [donationGlitch, setDonationGlitch] = useState(false);
+  const [avatarGlitch, setAvatarGlitch] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -35,6 +36,16 @@ export default function Home() {
         setTimeout(() => setDonationGlitch(false), 200 + Math.random() * 800);
       }
     }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.6) {
+        setAvatarGlitch(true);
+        setTimeout(() => setAvatarGlitch(false), 200 + Math.random() * 400);
+      }
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -135,11 +146,11 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
+              <div className={`absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 blur-xl transition-opacity duration-500 ${avatarGlitch ? "opacity-60" : "opacity-20"}`} />
               <img 
                 src="/images/avatar.jpg" 
                 alt="Dheeraj Avatar" 
-                className="relative w-full max-w-md mx-auto border-2 border-primary/50 grayscale group-hover:grayscale-0 transition-all duration-500"
+                className={`relative w-full max-w-md mx-auto border-2 border-primary/50 transition-all duration-200 ${avatarGlitch ? "grayscale-0 scale-[1.02] translate-x-1" : "grayscale"}`}
               />
               {/* Floating Badges */}
               <img 
