@@ -279,27 +279,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
-        <Button 
-          variant="outline" 
-          onClick={() => toast("Thanks for the thought! My GPU is full for now.")}
-          className={`
-            border-primary/50 hover:bg-primary/10 transition-all duration-100 cursor-pointer
-            ${donationGlitch ? "text-pink-500 border-pink-500 animate-pulse scale-105" : "text-primary"}
-          `}
-        >
-          {donationGlitch ? (
-            <>
-              <Cpu className="mr-2 h-4 w-4 animate-spin" />
-              DONATE_GPU_CREDITS
-            </>
-          ) : (
-            <>
-              <Coffee className="mr-2 h-4 w-4" />
-              BUY_ME_A_COFFEE
-            </>
-          )}
-        </Button>
+      <footer className="py-8 pb-20 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
         <p>
           © 2026 Dheeraj Yadla. Built with <span className="text-pink-500">♥</span> and a lot of prompts.
         </p>
