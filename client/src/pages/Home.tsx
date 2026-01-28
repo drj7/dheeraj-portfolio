@@ -133,7 +133,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hidden lg:block">
+          <div className="w-full lg:block mt-8 lg:mt-0">
             <Terminal initialLines={terminalLines} />
           </div>
         </div>
