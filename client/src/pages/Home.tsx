@@ -1,5 +1,6 @@
 import { GlitchCard } from "@/components/GlitchCard";
 import { Terminal } from "@/components/Terminal";
+import { SystemFooter } from "@/components/SystemFooter";
 import { Button } from "@/components/ui/button";
 import { Coffee, Cpu } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -303,6 +304,8 @@ export default function Home() {
           © 2026 Dheeraj Yadla. Built with <span className="text-pink-500">♥</span> and a lot of prompts.
         </p>
       </footer>
+      
+      <SystemFooter />
     </div>
   );
 }
