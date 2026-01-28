@@ -121,6 +121,22 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
           />
         </div>
       </div>
+      
+      {/* Quick Commands */}
+      <div className="flex flex-wrap gap-2 mt-4 pt-2 border-t border-primary/30">
+        {["help", "about", "skills", "contact", "clear"].map((cmd) => (
+          <button
+            key={cmd}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCommand(cmd);
+            }}
+            className="text-xs font-mono px-2 py-1 border border-primary/30 text-primary/70 hover:bg-primary/20 hover:text-primary hover:border-primary transition-colors uppercase"
+          >
+            [{cmd}]
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
