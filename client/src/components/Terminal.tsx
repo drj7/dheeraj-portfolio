@@ -9,6 +9,8 @@ interface TerminalProps {
 export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const [lines, setLines] = useState<string[]>(initialLines);
   const [input, setInput] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,6 +22,10 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
 
   const handleCommand = (cmd: string) => {
     const command = cmd.trim().toLowerCase();
+    if (command) {
+      setHistory(prev => [...prev, cmd]);
+      setHistoryIndex(-1);
+    }
     const newLines = [...lines, `> ${cmd}`];
 
     switch (command) {
@@ -72,6 +78,25 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleCommand(input);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (history.length > 0) {
+        const newIndex = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
+        setHistoryIndex(newIndex);
+        setInput(history[newIndex]);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex !== -1) {
+        const newIndex = historyIndex + 1;
+        if (newIndex >= history.length) {
+          setHistoryIndex(-1);
+          setInput("");
+        } else {
+          setHistoryIndex(newIndex);
+          setInput(history[newIndex]);
+        }
+      }
     }
   };
 
