@@ -6,8 +6,13 @@ interface TerminalProps {
   initialLines?: string[];
 }
 
+interface TerminalLine {
+  text: string;
+  color?: string;
+}
+
 export function Terminal({ className, initialLines = [] }: TerminalProps) {
-  const [lines, setLines] = useState<string[]>(initialLines);
+  const [lines, setLines] = useState<TerminalLine[]>(initialLines.map(text => ({ text, color: "text-primary/80" })));
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -26,39 +31,40 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
       setHistory(prev => [...prev, cmd]);
       setHistoryIndex(-1);
     }
-    const newLines = [...lines, `> ${cmd}`];
+    
+    const newLines = [...lines, { text: `> ${cmd}`, color: "text-white" }];
 
     switch (command) {
       case "help":
         newLines.push(
-          "Available commands:",
-          "  help     - Show this help message",
-          "  about    - Who is Dheeraj?",
-          "  skills   - List technical capabilities",
-          "  contact  - Display contact info",
-          "  clear    - Clear terminal screen"
+          { text: "Available commands:", color: "text-cyan-400" },
+          { text: "  help     - Show this help message", color: "text-cyan-400/80" },
+          { text: "  about    - Who is Dheeraj?", color: "text-cyan-400/80" },
+          { text: "  skills   - List technical capabilities", color: "text-cyan-400/80" },
+          { text: "  contact  - Display contact info", color: "text-cyan-400/80" },
+          { text: "  clear    - Clear terminal screen", color: "text-cyan-400/80" }
         );
         break;
       case "about":
         newLines.push(
-          "Dheeraj Yadla:",
-          "Software Engineer turned AI Whisperer.",
-          "Building the bridge between human intent and machine execution."
+          { text: "Dheeraj Yadla:", color: "text-green-400" },
+          { text: "Software Engineer turned AI Whisperer.", color: "text-green-400/80" },
+          { text: "Building the bridge between human intent and machine execution.", color: "text-green-400/80" }
         );
         break;
       case "skills":
         newLines.push(
-          "Technical Capabilities:",
-          "  [Frontend]  React, TypeScript, Tailwind",
-          "  [Backend]   Node.js, Python, PostgreSQL",
-          "  [AI/LLM]    Prompt Engineering, RAG, Agents"
+          { text: "Technical Capabilities:", color: "text-yellow-400" },
+          { text: "  [Frontend]  React, TypeScript, Tailwind", color: "text-yellow-400/80" },
+          { text: "  [Backend]   Node.js, Python, PostgreSQL", color: "text-yellow-400/80" },
+          { text: "  [AI/LLM]    Prompt Engineering, RAG, Agents", color: "text-yellow-400/80" }
         );
         break;
       case "contact":
         newLines.push(
-          "Contact Information:",
-          "  Email: dheerajyadla@gmail.com",
-          "  Status: Open to opportunities"
+          { text: "Contact Information:", color: "text-pink-400" },
+          { text: "  Email: dheerajyadla@gmail.com", color: "text-pink-400/80" },
+          { text: "  Status: Open to opportunities", color: "text-pink-400/80" }
         );
         break;
       case "clear":
@@ -68,7 +74,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
       case "":
         break;
       default:
-        newLines.push(`Command not found: ${command}. Type 'help' for available commands.`);
+        newLines.push({ text: `Command not found: ${command}. Type 'help' for available commands.`, color: "text-red-400" });
     }
 
     setLines(newLines);
@@ -119,14 +125,14 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
       
       <div ref={containerRef} className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide cursor-text">
         {lines.map((line, i) => (
-          <div key={i} className="text-primary/80 break-words whitespace-pre-wrap">
-            {line.startsWith(">") ? (
+          <div key={i} className={cn("break-words whitespace-pre-wrap", line.color || "text-primary/80")}>
+            {line.text.startsWith(">") ? (
               <>
                 <span className="text-green-500 mr-2">$</span>
-                {line.substring(2)}
+                {line.text.substring(2)}
               </>
             ) : (
-              <span className="text-primary/70">{line}</span>
+              <span>{line.text}</span>
             )}
           </div>
         ))}
