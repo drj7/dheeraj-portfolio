@@ -150,17 +150,7 @@ export default function Home() {
                 alt="Dheeraj Avatar" 
                 className={`relative w-full max-w-md mx-auto border-2 border-primary/50 transition-all duration-700 ease-in-out ${avatarGlitch ? "grayscale-0 scale-[1.02]" : "grayscale"}`}
               />
-              {/* Floating Badges */}
-              <img 
-                src="/images/badge-java.png" 
-                alt="Java Badge"
-                className="absolute -top-8 -right-8 w-24 h-24 animate-bounce delay-100 drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]"
-              />
-              <img 
-                src="/images/badge-ai.png" 
-                alt="AI Badge"
-                className="absolute -bottom-8 -left-8 w-24 h-24 animate-bounce drop-shadow-[0_0_10px_rgba(255,0,255,0.5)]"
-              />
+
             </div>
             
             <div className="space-y-8">
