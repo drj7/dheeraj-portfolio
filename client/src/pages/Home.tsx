@@ -277,7 +277,7 @@ export default function Home() {
             <span className="text-pink-500">03.</span> INITIATE_UPLINK
           </h2>
           <p className="text-muted-foreground mb-12 font-mono">
-            My neural link is always open. Whether you have a question, a project idea, or just want to discuss the inevitable robot uprising, I'll try my best to get back to you.
+            I'm always open to new opportunities and collaborations. Whether you have a question, a project idea, or just want to say hi, feel free to reach out.
           </p>
           
           <div className="space-y-6">
