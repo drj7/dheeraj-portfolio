@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { ChatMode } from "./ChatMode";
 
 interface TerminalProps {
   className?: string;
@@ -16,6 +17,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isChatMode, setIsChatMode] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,6 +47,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
           { text: "  about    - Who is Dheeraj?", color: "text-cyan-400/80" },
           { text: "  skills   - List technical capabilities", color: "text-cyan-400/80" },
           { text: "  contact  - Display contact info", color: "text-cyan-400/80" },
+          { text: "  chat     - Talk to Dheeraj-AI", color: "text-cyan-400/80" },
           { text: "  clear    - Clear terminal screen", color: "text-cyan-400/80" }
         );
         break;
@@ -70,6 +73,9 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
           { text: "  Status: Open to opportunities", color: "text-pink-400/80" }
         );
         break;
+      case "chat":
+        setIsChatMode(true);
+        return;
       case "clear":
         setLines([]);
         setInput("");
@@ -131,58 +137,66 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
         <div className="text-primary/50 text-xs">user@dheeraj-pc:~</div>
       </div>
       
-      <div
-        ref={containerRef}
-        className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide cursor-text"
-        role="log"
-        aria-live="polite"
-        aria-label="Terminal output"
-      >
-        {lines.map((line, i) => (
-          <div key={i} className={cn("break-words whitespace-pre-wrap", line.color || "text-primary/80")}>
-            {line.text.startsWith(">") ? (
-              <>
-                <span className="text-green-500 mr-2">$</span>
-                {line.text.substring(2)}
-              </>
-            ) : (
-              <span>{line.text}</span>
-            )}
-          </div>
-        ))}
-        
-        <div className="flex items-center text-primary">
-          <span className="text-green-500 mr-2">$</span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="bg-transparent border-none outline-none flex-1 text-primary placeholder-primary/30"
-            placeholder="Type 'help'..."
-            autoComplete="off"
-            spellCheck="false"
-            aria-label="Terminal command input"
-          />
+      {isChatMode ? (
+        <div className="h-[300px]">
+          <ChatMode onExit={() => setIsChatMode(false)} />
         </div>
-      </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide cursor-text"
+          role="log"
+          aria-live="polite"
+          aria-label="Terminal output"
+        >
+          {lines.map((line, i) => (
+            <div key={i} className={cn("break-words whitespace-pre-wrap", line.color || "text-primary/80")}>
+              {line.text.startsWith(">") ? (
+                <>
+                  <span className="text-green-500 mr-2">$</span>
+                  {line.text.substring(2)}
+                </>
+              ) : (
+                <span>{line.text}</span>
+              )}
+            </div>
+          ))}
+          
+          <div className="flex items-center text-primary">
+            <span className="text-green-500 mr-2">$</span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="bg-transparent border-none outline-none flex-1 text-primary placeholder-primary/30"
+              placeholder="Type 'help'..."
+              autoComplete="off"
+              spellCheck="false"
+              aria-label="Terminal command input"
+            />
+          </div>
+        </div>
+      )}
       
       {/* Quick Commands */}
-      <div className="flex flex-wrap gap-2 mt-4 pt-2 border-t border-primary/30">
-        {["help", "about", "skills", "contact", "clear"].map((cmd) => (
-          <button
-            key={cmd}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleCommand(cmd);
-            }}
-            className="text-xs font-mono px-2 py-1 border border-primary/30 text-primary/70 hover:bg-primary/20 hover:text-primary hover:border-primary transition-colors uppercase"
-          >
-            [{cmd}]
-          </button>
-        ))}
-      </div>
+      {!isChatMode && (
+        <div className="flex flex-wrap gap-2 mt-4 pt-2 border-t border-primary/30">
+          {["help", "about", "skills", "contact", "chat", "clear"].map((cmd) => (
+            <button
+              key={cmd}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCommand(cmd);
+              }}
+              className="text-xs font-mono px-2 py-1 border border-primary/30 text-primary/70 hover:bg-primary/20 hover:text-primary hover:border-primary transition-colors uppercase"
+            >
+              [{cmd}]
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
