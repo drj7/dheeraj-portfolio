@@ -4,7 +4,7 @@ import { Terminal } from "@/components/Terminal";
 import { SystemFooter } from "@/components/SystemFooter";
 import { MobileNav } from "@/components/MobileNav";
 import { Button } from "@/components/ui/button";
-import { Copy, Github, Linkedin, Twitter } from "lucide-react";
+import { Copy, Github, Linkedin, Twitter, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -286,10 +286,26 @@ export default function Home() {
               className="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black font-mono text-lg px-8 py-6 rounded-none transition-all hover:shadow-[0_0_20px_rgba(0,255,0,0.5)]"
               onClick={handleEmailClick}
             >
+              <Mail className="w-5 h-5 mr-3" />
               SEND_TRANSMISSION
             </Button>
             
-            <div className="flex justify-center gap-4 pt-8">
+            <div className="flex flex-col items-center gap-6 pt-8">
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 border border-primary/20 bg-primary/5 text-primary hover:bg-primary hover:text-black transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.4)]"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="h-6 w-6" />
+                  </a>
+                ))}
+              </div>
+
               <Button
                 variant="ghost"
                 size="sm"
