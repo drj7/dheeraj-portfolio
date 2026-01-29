@@ -257,13 +257,13 @@ export default function Home() {
 
             <GlitchCard title="E-Commerce for Time Travelers" className="h-full">
               <p className="text-muted-foreground mb-4">
-                A Next.js storefront with a temporal database. It handles race conditions that haven't happened yet and processes refunds from the future.
+                A Next.js shop where you can buy Bitcoin in 2010. Features a 'Grandfather Paradox' prevention algorithm (it just deletes your account).
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
                 <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Next.js</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">GraphQL</span>
                 <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Stripe</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Redis</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Tailwind</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Vercel</span>
               </div>
             </GlitchCard>
           </div>
@@ -274,56 +274,36 @@ export default function Home() {
       <section id="contact" className="py-24 border-t border-primary/20 bg-black/50">
         <div className="container max-w-2xl text-center">
           <h2 className="text-4xl text-primary mb-8">
-            <span className="text-pink-500">03.</span> ESTABLISH_UPLINK
+            <span className="text-pink-500">03.</span> INITIATE_UPLINK
           </h2>
-          <p className="text-xl text-muted-foreground mb-12 font-mono">
-            Whether you need a software engineer who understands the metal, or an AI specialist who understands the magic, I'm your guy.
+          <p className="text-muted-foreground mb-12 font-mono">
+            My neural link is always open. Whether you have a question, a project idea, or just want to discuss the inevitable robot uprising, I'll try my best to get back to you.
           </p>
           
-          <div className="inline-block p-1 bg-gradient-to-r from-primary to-pink-500">
-            <div className="bg-black p-8">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <p className="text-xl md:text-2xl font-display text-white break-all">dheerajyadla@gmail.com</p>
-                <button
-                  onClick={handleCopyEmail}
-                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Copy email"
-                >
-                  <Copy className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="space-y-6">
+            <Button 
+              size="lg"
+              className="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black font-mono text-lg px-8 py-6 rounded-none transition-all hover:shadow-[0_0_20px_rgba(0,255,0,0.5)]"
+              onClick={handleEmailClick}
+            >
+              SEND_TRANSMISSION
+            </Button>
+            
+            <div className="flex justify-center gap-4 pt-8">
               <Button
-                className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full md:w-auto md:px-12"
-                onClick={handleEmailClick}
+                variant="ghost"
+                size="sm"
+                className="font-mono text-muted-foreground hover:text-primary"
+                onClick={handleCopyEmail}
               >
-                SEND_EMAIL
+                <Copy className="w-4 h-4 mr-2" />
+                COPY_PGP_KEY
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 pb-20 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
-        <div className="flex gap-6">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label={social.label}
-            >
-              <social.icon className="h-5 w-5" />
-            </a>
-          ))}
-        </div>
-        <p>
-          © 2026 Dheeraj Yadla. Built with <span className="text-pink-500">♥</span> and a lot of prompts.
-        </p>
-      </footer>
-      
       <SystemFooter />
     </div>
   );

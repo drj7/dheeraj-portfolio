@@ -117,7 +117,7 @@ export function NeuralBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-30"
+      className="absolute inset-0 z-[1] pointer-events-none opacity-50"
       style={{ background: 'transparent' }}
     />
   );
