@@ -19,6 +19,9 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const MAX_HISTORY = 50;
+  const MAX_LINES = 100;
+
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
@@ -28,7 +31,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
   const handleCommand = (cmd: string) => {
     const command = cmd.trim().toLowerCase();
     if (command) {
-      setHistory(prev => [...prev, cmd]);
+      setHistory(prev => [...prev.slice(-MAX_HISTORY + 1), cmd]);
       setHistoryIndex(-1);
     }
     
@@ -77,6 +80,11 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
         newLines.push({ text: `Command not found: ${command}. Type 'help' for available commands.`, color: "text-red-400" });
     }
 
+    // Limit the number of displayed lines
+    if (newLines.length > MAX_LINES) {
+      newLines.splice(0, newLines.length - MAX_LINES);
+    }
+
     setLines(newLines);
     setInput("");
   };
@@ -123,7 +131,13 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
         <div className="text-primary/50 text-xs">user@dheeraj-pc:~</div>
       </div>
       
-      <div ref={containerRef} className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide cursor-text">
+      <div
+        ref={containerRef}
+        className="space-y-1 h-[300px] overflow-y-auto scrollbar-hide cursor-text"
+        role="log"
+        aria-live="polite"
+        aria-label="Terminal output"
+      >
         {lines.map((line, i) => (
           <div key={i} className={cn("break-words whitespace-pre-wrap", line.color || "text-primary/80")}>
             {line.text.startsWith(">") ? (
@@ -149,6 +163,7 @@ export function Terminal({ className, initialLines = [] }: TerminalProps) {
             placeholder="Type 'help'..."
             autoComplete="off"
             spellCheck="false"
+            aria-label="Terminal command input"
           />
         </div>
       </div>

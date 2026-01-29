@@ -1,10 +1,18 @@
 import { GlitchCard } from "@/components/GlitchCard";
+import { NeuralBackground } from "@/components/NeuralBackground";
 import { Terminal } from "@/components/Terminal";
 import { SystemFooter } from "@/components/SystemFooter";
+import { MobileNav } from "@/components/MobileNav";
 import { Button } from "@/components/ui/button";
-import { Coffee, Cpu } from "lucide-react";
+import { Copy, Github, Linkedin, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/drj7", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/dheerajyadla", label: "LinkedIn" },
+  { icon: Twitter, href: "https://x.com/dherj", label: "Twitter" },
+];
 
 export default function Home() {
   const [donationGlitch, setDonationGlitch] = useState(false);
@@ -72,18 +80,34 @@ export default function Home() {
             <a href="#about" className="hover:text-primary transition-colors">[ ABOUT ]</a>
             <a href="#projects" className="hover:text-primary transition-colors">[ PROJECTS ]</a>
             <a href="#contact" className="hover:text-primary transition-colors">[ CONTACT ]</a>
-
+            <div className="flex gap-3 ml-4 border-l border-primary/20 pl-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label={social.label}
+                >
+                  <social.icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
           </div>
+          <MobileNav />
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-16">
+      <section id="main-content" className="relative min-h-screen flex items-center pt-16">
+        <NeuralBackground />
         <div className="absolute inset-0 z-0 opacity-30">
-          <img 
-            src="/images/hero-bg.jpg" 
-            alt="Background" 
+          <img
+            src="/images/hero-bg.jpg"
+            alt=""
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
         </div>
@@ -146,10 +170,11 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
               <div className={`absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 blur-xl transition-opacity duration-1000 ${avatarGlitch ? "opacity-60" : "opacity-20"}`} />
-              <img 
-                src="/images/avatar.jpg" 
-                alt="Dheeraj Avatar" 
+              <img
+                src="/images/avatar.jpg"
+                alt="Dheeraj Yadla"
                 className={`relative w-full max-w-md mx-auto border-2 border-primary/50 transition-all duration-700 ease-in-out ${avatarGlitch ? "grayscale-0 scale-[1.02]" : "grayscale"}`}
+                loading="lazy"
               />
 
             </div>
@@ -257,22 +282,22 @@ export default function Home() {
           
           <div className="inline-block p-1 bg-gradient-to-r from-primary to-pink-500">
             <div className="bg-black p-8">
-              <p className="text-xl md:text-2xl font-display text-white mb-6 break-all">dheerajyadla@gmail.com</p>
-              <div className="flex flex-col md:flex-row justify-center gap-4">
-                <Button 
-                  className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full"
-                  onClick={handleEmailClick}
-                >
-                  SEND_EMAIL
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-primary text-primary hover:bg-primary/10 font-mono rounded-none w-full"
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <p className="text-xl md:text-2xl font-display text-white break-all">dheerajyadla@gmail.com</p>
+                <button
                   onClick={handleCopyEmail}
+                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Copy email"
                 >
-                  COPY_PGP_KEY
-                </Button>
+                  <Copy className="h-5 w-5" />
+                </button>
               </div>
+              <Button
+                className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none w-full md:w-auto md:px-12"
+                onClick={handleEmailClick}
+              >
+                SEND_EMAIL
+              </Button>
             </div>
           </div>
         </div>
@@ -280,6 +305,20 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-8 pb-20 border-t border-primary/10 text-center text-sm text-muted-foreground font-mono flex flex-col items-center gap-4">
+        <div className="flex gap-6">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label={social.label}
+            >
+              <social.icon className="h-5 w-5" />
+            </a>
+          ))}
+        </div>
         <p>
           © 2026 Dheeraj Yadla. Built with <span className="text-pink-500">♥</span> and a lot of prompts.
         </p>

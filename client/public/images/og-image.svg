@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="100%" style="stop-color:#0a0a0a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glitch" x="-20%" y="-20%" width="140%" height="140%">
+      <feOffset in="SourceGraphic" dx="3" dy="0" result="r"/>
+      <feOffset in="SourceGraphic" dx="-3" dy="0" result="g"/>
+      <feColorMatrix in="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0" result="r-colored"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  1 0 0 0 0  0 0 0 0.7 0" result="g-colored"/>
+      <feMerge>
+        <feMergeNode in="r-colored"/>
+        <feMergeNode in="g-colored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Scanlines -->
+  <pattern id="scanlines" patternUnits="userSpaceOnUse" width="4" height="4">
+    <rect width="4" height="2" fill="rgba(0,255,0,0.03)"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#scanlines)"/>
+
+  <!-- Border -->
+  <rect x="20" y="20" width="1160" height="590" fill="none" stroke="#00ff00" stroke-width="2" opacity="0.5"/>
+
+  <!-- Terminal prompt decoration -->
+  <text x="60" y="80" fill="#00ff00" font-family="monospace" font-size="20" opacity="0.5">&gt; system.initialize()</text>
+
+  <!-- Main title with glitch effect -->
+  <text x="600" y="280" text-anchor="middle" fill="#00ff00" font-family="monospace" font-size="72" font-weight="bold" filter="url(#glitch)">DHEERAJ_YADLA</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="360" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="32">SOFTWARE ENGINEER</text>
+
+  <!-- Tagline with pink accent -->
+  <text x="600" y="420" text-anchor="middle" font-family="monospace" font-size="36">
+    <tspan fill="#ff69b4">AI_WHISPERER</tspan>
+  </text>
+
+  <!-- Bottom decoration -->
+  <text x="600" y="560" text-anchor="middle" fill="#00ff00" font-family="monospace" font-size="18" opacity="0.6">Building the bridge between human intent and machine execution</text>
+
+  <!-- Corner decorations -->
+  <path d="M40 40 L80 40 L80 50 L50 50 L50 80 L40 80 Z" fill="#00ff00" opacity="0.8"/>
+  <path d="M1160 40 L1120 40 L1120 50 L1150 50 L1150 80 L1160 80 Z" fill="#00ff00" opacity="0.8"/>
+  <path d="M40 590 L80 590 L80 580 L50 580 L50 550 L40 550 Z" fill="#00ff00" opacity="0.8"/>
+  <path d="M1160 590 L1120 590 L1120 580 L1150 580 L1150 550 L1160 550 Z" fill="#00ff00" opacity="0.8"/>
+</svg>
