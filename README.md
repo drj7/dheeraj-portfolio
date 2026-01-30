@@ -89,11 +89,11 @@ git clone https://github.com/drj7/dheeraj-portfolio.git
 # Navigate to the project
 cd dheeraj-portfolio
 
-# Install dependencies (we use pnpm because npm is so 2020)
-pnpm install
+# Install dependencies (use --legacy-peer-deps to resolve dependency conflicts)
+npm install --legacy-peer-deps
 
 # Start the dev server
-pnpm dev
+npm run dev
 
 # Open http://localhost:3000 and witness the glitch
 ```

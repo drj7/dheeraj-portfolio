@@ -132,11 +132,11 @@ export default function Home() {
               <span className="glitch-text text-pink-500" data-text="AI_WHISPERER">AI_WHISPERER</span>
             </h1>
             <p className="text-lg text-muted-foreground font-mono max-w-xl">
-              I used to write thousands of lines of code to center a div. 
+              I used to write thousands of lines of code to center a div.
               Now I ask the AI nicely and it builds me a spaceship.
             </p>
             <div className="flex gap-4">
-              <Button 
+              <Button
                 className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none border-2 border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all"
                 onClick={() => {
                   addLog("Executing: contact_me.sh");
@@ -145,8 +145,8 @@ export default function Home() {
               >
                 INITIATE_CONTACT
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="font-mono rounded-none border-primary/50 text-primary hover:bg-primary/10"
                 onClick={() => {
                   addLog("Accessing: /var/log/bio.txt");
@@ -178,7 +178,7 @@ export default function Home() {
               />
 
             </div>
-            
+
             <div className="space-y-8">
               <h2 className="text-4xl text-primary">
                 <span className="text-pink-500">01.</span> THE_TRANSFORMATION
@@ -197,7 +197,23 @@ export default function Home() {
                   Now, I bridge the gap between human intent and machine execution. I don't just write code; I curate intelligence.
                 </p>
               </div>
-              
+
+              {/* Location & Personal */}
+              <div className="p-4 border border-cyan-500/20 bg-cyan-500/5">
+                <h3 className="text-cyan-400 mb-3 font-display flex items-center gap-2">
+                  <span className="text-lg">📍</span> CURRENT_LOCATION
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Based in the <span className="text-cyan-400">San Francisco Bay Area</span>, living with my wife and our dog. When I'm not prompting robots, you'll find me:
+                </p>
+                <ul className="text-sm text-muted-foreground space-y-1 ml-4">
+                  <li className="flex items-center gap-2"><span className="text-primary">🏔️</span> Exploring the outdoors & hiking trails</li>
+                  <li className="flex items-center gap-2"><span className="text-primary">✈️</span> Traveling and discovering new places</li>
+                  <li className="flex items-center gap-2"><span className="text-primary">💪</span> Staying fit at the gym</li>
+                  <li className="flex items-center gap-2"><span className="text-primary">🤖</span> Tinkering with the latest tech</li>
+                </ul>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 border border-primary/20 bg-primary/5">
                   <h3 className="text-primary mb-2 font-display">OLD_SKILLS</h3>
@@ -229,7 +245,7 @@ export default function Home() {
           <h2 className="text-4xl text-primary mb-16 text-center">
             <span className="text-pink-500">02.</span> SELECTED_WORKS
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <GlitchCard title="Enterprise To-Do List" className="h-full">
               <p className="text-muted-foreground mb-4">
@@ -277,9 +293,9 @@ export default function Home() {
             <span className="text-pink-500">03.</span> INITIATE_UPLINK
           </h2>
 
-          
+
           <div className="space-y-6">
-            <Button 
+            <Button
               size="lg"
               className="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black font-mono text-lg px-8 py-6 rounded-none transition-all hover:shadow-[0_0_20px_rgba(0,255,0,0.5)]"
               onClick={handleEmailClick}
@@ -287,7 +303,7 @@ export default function Home() {
               <Mail className="w-5 h-5 mr-3" />
               SEND_TRANSMISSION
             </Button>
-            
+
             <div className="flex flex-col items-center gap-6 pt-8">
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
