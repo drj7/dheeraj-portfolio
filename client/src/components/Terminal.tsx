@@ -18,7 +18,7 @@ const INITIAL_PROMPTS = [
 
 export function Terminal({ className }: TerminalProps) {
   const [messages, setMessages] = useState<Message[]>([
-    { role: "system", content: "dheeraj-ai • powered by gemini" },
+    { role: "system", content: "dheeraj-ai" },
     {
       role: "assistant",
       content:
@@ -238,7 +238,7 @@ export function Terminal({ className }: TerminalProps) {
             onClick={e => {
               e.stopPropagation();
               setMessages([
-                { role: "system", content: "dheeraj-ai • powered by gemini" },
+                { role: "system", content: "dheeraj-ai" },
                 {
                   role: "assistant",
                   content:
