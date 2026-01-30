@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Particle {
   x: number;
@@ -16,12 +16,12 @@ export function NeuralBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
     let particles: Particle[] = [];
-    
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -31,7 +31,7 @@ export function NeuralBackground() {
     const initParticles = () => {
       particles = [];
       const particleCount = Math.min(window.innerWidth * 0.1, 100); // Responsive count
-      
+
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
@@ -45,7 +45,7 @@ export function NeuralBackground() {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Update and draw particles
       particles.forEach((p, i) => {
         p.x += p.vx;
@@ -59,7 +59,7 @@ export function NeuralBackground() {
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < 200) {
           const forceDirectionX = dx / distance;
           const forceDirectionY = dy / distance;
@@ -73,7 +73,7 @@ export function NeuralBackground() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 255, 65, 0.5)'; // Cyberpunk green
+        ctx.fillStyle = "rgba(0, 255, 65, 0.5)"; // Cyberpunk green
         ctx.fill();
 
         // Draw connections
@@ -101,15 +101,15 @@ export function NeuralBackground() {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
 
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove);
-    
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", handleMouseMove);
+
     resize();
     draw();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -118,7 +118,7 @@ export function NeuralBackground() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 z-[1] pointer-events-none opacity-50"
-      style={{ background: 'transparent' }}
+      style={{ background: "transparent" }}
     />
   );
 }

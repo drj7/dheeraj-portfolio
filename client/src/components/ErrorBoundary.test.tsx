@@ -53,7 +53,9 @@ describe("ErrorBoundary", () => {
         </ErrorBoundary>
       );
 
-      expect(screen.getByText("An unexpected error occurred.")).toBeInTheDocument();
+      expect(
+        screen.getByText("An unexpected error occurred.")
+      ).toBeInTheDocument();
     });
 
     it("displays the error stack trace", () => {
@@ -73,7 +75,9 @@ describe("ErrorBoundary", () => {
         </ErrorBoundary>
       );
 
-      expect(screen.getByRole("button", { name: /reload page/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /reload page/i })
+      ).toBeInTheDocument();
     });
 
     it("calls window.location.reload when reload button is clicked", () => {
@@ -104,7 +108,9 @@ describe("ErrorBoundary", () => {
       );
 
       // The error UI should be visible, indicating state was updated
-      expect(screen.getByText("An unexpected error occurred.")).toBeInTheDocument();
+      expect(
+        screen.getByText("An unexpected error occurred.")
+      ).toBeInTheDocument();
     });
   });
 });

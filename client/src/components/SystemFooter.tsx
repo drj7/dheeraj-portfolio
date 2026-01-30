@@ -7,15 +7,15 @@ export function SystemFooter() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setUptime((prev) => prev + 1);
+      setUptime(prev => prev + 1);
       // Fluctuate memory between 30-60%
-      setMemory((prev) => {
+      setMemory(prev => {
         const change = Math.random() > 0.5 ? 1 : -1;
         const next = prev + change;
         return next > 60 ? 60 : next < 30 ? 30 : next;
       });
       // Fluctuate latency between 15-45ms
-      setLatency((prev) => {
+      setLatency(prev => {
         const change = Math.floor(Math.random() * 5) - 2;
         const next = prev + change;
         return next > 45 ? 45 : next < 15 ? 15 : next;
@@ -44,7 +44,7 @@ export function SystemFooter() {
           <span className="font-bold">{formatTime(uptime)}</span>
         </div>
       </div>
-      
+
       <div className="flex items-center space-x-6 md:space-x-8">
         <div className="hidden md:block">
           <span className="text-primary/60 mr-2">HEAP:</span>
@@ -54,9 +54,7 @@ export function SystemFooter() {
           <span className="text-primary/60 mr-2">LATENCY:</span>
           <span className="font-bold">{latency}ms</span>
         </div>
-        <div className="hidden sm:block text-primary/40 font-bold">
-          v2.0.4
-        </div>
+        <div className="hidden sm:block text-primary/40 font-bold">v2.0.4</div>
       </div>
     </div>
   );

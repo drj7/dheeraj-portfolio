@@ -6,24 +6,24 @@ This project is a modern web application built with a React frontend and a Node.
 
 The project is organized into the following directories:
 
--   `client/`: Contains the React frontend code, including components, pages, and styles.
--   `server/`: Contains the Node.js backend code, which serves the frontend and provides API endpoints.
--   `shared/`: Contains code that is shared between the frontend and backend.
--   `dist/`: Contains the production build of the application.
+- `client/`: Contains the React frontend code, including components, pages, and styles.
+- `server/`: Contains the Node.js backend code, which serves the frontend and provides API endpoints.
+- `shared/`: Contains code that is shared between the frontend and backend.
+- `dist/`: Contains the production build of the application.
 
 ## Technologies Used
 
--   **Frontend:**
-    -   React
-    -   Vite
-    -   Tailwind CSS
-    -   wouter (for routing)
--   **Backend:**
-    -   Node.js
-    -   Express
--   **Testing:**
-    -   Vitest
-    -   React Testing Library
+- **Frontend:**
+  - React
+  - Vite
+  - Tailwind CSS
+  - wouter (for routing)
+- **Backend:**
+  - Node.js
+  - Express
+- **Testing:**
+  - Vitest
+  - React Testing Library
 
 ## Building and Running the Project
 
@@ -81,6 +81,6 @@ All components are well-tested with React Testing Library, and the project has a
 
 The backend provides the following API endpoints:
 
--   `/api/chat`: This endpoint is used for the chat functionality of the application.
+- `/api/chat`: This endpoint is used for the chat functionality of the application.
 
 All other requests are proxied to the frontend to enable client-side routing.

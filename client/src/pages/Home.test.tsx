@@ -40,7 +40,7 @@ describe("Home", () => {
 
     it("renders the contact section", () => {
       render(<Home />);
-      expect(screen.getByText(/ESTABLISH_UPLINK/)).toBeInTheDocument();
+      expect(screen.getByText(/INITIATE_UPLINK/)).toBeInTheDocument();
     });
   });
 
@@ -52,18 +52,25 @@ describe("Home", () => {
 
     it("displays the main tagline", () => {
       render(<Home />);
-      expect(screen.getByText(/I used to write thousands of lines of code/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/I used to write thousands of lines of code/)
+      ).toBeInTheDocument();
     });
 
     it("renders contact and view logs buttons", () => {
       render(<Home />);
-      expect(screen.getByRole("button", { name: "INITIATE_CONTACT" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "VIEW_LOGS" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "INITIATE_CONTACT" })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "VIEW_LOGS" })
+      ).toBeInTheDocument();
     });
 
     it("renders the terminal component", () => {
       render(<Home />);
-      expect(screen.getByRole("log")).toBeInTheDocument();
+      // Terminal component has "dheeraj-ai" text (appears multiple times)
+      expect(screen.getAllByText("dheeraj-ai")[0]).toBeInTheDocument();
     });
   });
 
@@ -92,8 +99,12 @@ describe("Home", () => {
     it("displays all project cards", () => {
       render(<Home />);
       expect(screen.getByText("Enterprise To-Do List")).toBeInTheDocument();
-      expect(screen.getByText("The 'Scale' Social Network")).toBeInTheDocument();
-      expect(screen.getByText("E-Commerce for Time Travelers")).toBeInTheDocument();
+      expect(
+        screen.getByText("The 'Scale' Social Network")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("E-Commerce for Time Travelers")
+      ).toBeInTheDocument();
     });
 
     it("displays project technologies", () => {
@@ -105,30 +116,38 @@ describe("Home", () => {
   });
 
   describe("Contact Section", () => {
-    it("displays email address", () => {
+    it("displays send transmission button", () => {
       render(<Home />);
-      expect(screen.getAllByText("dheerajyadla@gmail.com")[0]).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /SEND_TRANSMISSION/ })
+      ).toBeInTheDocument();
     });
 
-    it("displays send email button", () => {
+    it("displays copy button", () => {
       render(<Home />);
-      expect(screen.getByRole("button", { name: "SEND_EMAIL" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /COPY_PGP_KEY/ })
+      ).toBeInTheDocument();
     });
 
     it("copies email to clipboard when copy button is clicked", async () => {
       render(<Home />);
-      const copyButton = screen.getByLabelText("Copy email");
+      const copyButton = screen.getByRole("button", { name: /COPY_PGP_KEY/ });
       fireEvent.click(copyButton);
 
-      expect(navigator.clipboard.writeText).toHaveBeenCalledWith("dheerajyadla@gmail.com");
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+        "dheerajyadla@gmail.com"
+      );
     });
 
-    it("opens mailto link when send email button is clicked", () => {
+    it("opens mailto link when send transmission button is clicked", () => {
       delete (window as any).location;
       window.location = { href: "" } as any;
 
       render(<Home />);
-      const sendButton = screen.getByRole("button", { name: "SEND_EMAIL" });
+      const sendButton = screen.getByRole("button", {
+        name: /SEND_TRANSMISSION/,
+      });
       fireEvent.click(sendButton);
 
       expect(window.location.href).toBe("mailto:dheerajyadla@gmail.com");
@@ -136,20 +155,14 @@ describe("Home", () => {
   });
 
   describe("Footer", () => {
-    it("renders social media links in footer", () => {
-      render(<Home />);
-      const footer = screen.getByText(/Built with/).parentElement;
-      expect(footer).toBeInTheDocument();
-    });
-
-    it("displays copyright information", () => {
-      render(<Home />);
-      expect(screen.getByText(/© 2026 Dheeraj Yadla/)).toBeInTheDocument();
-    });
-
-    it("renders SystemFooter component", () => {
+    it("renders SystemFooter component with SYSTEM_ONLINE", () => {
       render(<Home />);
       expect(screen.getByText("SYSTEM_ONLINE")).toBeInTheDocument();
+    });
+
+    it("displays latency information", () => {
+      render(<Home />);
+      expect(screen.getByText("LATENCY:")).toBeInTheDocument();
     });
   });
 
@@ -161,7 +174,9 @@ describe("Home", () => {
 
     it("scrolls to contact section when INITIATE_CONTACT is clicked", () => {
       render(<Home />);
-      const contactButton = screen.getByRole("button", { name: "INITIATE_CONTACT" });
+      const contactButton = screen.getByRole("button", {
+        name: "INITIATE_CONTACT",
+      });
       fireEvent.click(contactButton);
 
       // scrollIntoView should be called

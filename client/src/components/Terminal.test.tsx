@@ -1,42 +1,59 @@
-import { render, screen, fireEvent } from "@/test/test-utils";
+import { render, screen, fireEvent, waitFor } from "@/test/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Terminal } from "./Terminal";
+
+// Mock fetch for API calls
+global.fetch = vi.fn();
 
 describe("Terminal", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          response: "Test response from AI",
+          suggestions: ["Follow up 1", "Follow up 2", "Follow up 3"],
+        }),
+    });
   });
 
   describe("Rendering", () => {
     it("renders the terminal container", () => {
       render(<Terminal />);
-      expect(screen.getByRole("log")).toBeInTheDocument();
+      expect(screen.getAllByText("dheeraj-ai")[0]).toBeInTheDocument();
     });
 
-    it("renders the terminal header with window controls", () => {
+    it("renders the initial system message", () => {
       render(<Terminal />);
-      expect(screen.getByText("user@dheeraj-pc:~")).toBeInTheDocument();
+      expect(
+        screen.getByText("dheeraj-ai • powered by gemini")
+      ).toBeInTheDocument();
+    });
+
+    it("renders the initial assistant greeting", () => {
+      render(<Terminal />);
+      expect(
+        screen.getByText(
+          /Hey! I'm Dheeraj's AI assistant. Ask me anything about his background, skills, or experience./
+        )
+      ).toBeInTheDocument();
     });
 
     it("renders input field with correct placeholder", () => {
       render(<Terminal />);
-      expect(screen.getByPlaceholderText("Type 'help'...")).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("Ask about Dheeraj...")
+      ).toBeInTheDocument();
     });
 
-    it("renders quick command buttons", () => {
+    it("renders suggested prompts", () => {
       render(<Terminal />);
-      expect(screen.getByRole("button", { name: "[help]" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "[about]" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "[skills]" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "[contact]" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "[clear]" })).toBeInTheDocument();
-    });
-
-    it("renders with initial lines", () => {
-      const initialLines = ["Line 1", "Line 2"];
-      render(<Terminal initialLines={initialLines} />);
-      expect(screen.getByText("Line 1")).toBeInTheDocument();
-      expect(screen.getByText("Line 2")).toBeInTheDocument();
+      expect(screen.getByText("Who is Dheeraj?")).toBeInTheDocument();
+      expect(screen.getByText("What are his skills?")).toBeInTheDocument();
+      expect(
+        screen.getByText("Tell me about his experience")
+      ).toBeInTheDocument();
     });
 
     it("applies custom className", () => {
@@ -45,198 +62,152 @@ describe("Terminal", () => {
     });
   });
 
-  describe("Help Command", () => {
-    it("displays help message when 'help' is entered", () => {
+  describe("User Input", () => {
+    it("allows typing in the input field", () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "help" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      expect(screen.getByText("Available commands:")).toBeInTheDocument();
-      expect(screen.getByText(/help\s+- Show this help message/)).toBeInTheDocument();
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Hello" } });
+      expect(input).toHaveValue("Hello");
     });
 
-    it("displays help when help button is clicked", () => {
+    it("submits message on form submit", async () => {
       render(<Terminal />);
-      fireEvent.click(screen.getByRole("button", { name: "[help]" }));
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Test question" } });
 
-      expect(screen.getByText("Available commands:")).toBeInTheDocument();
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
+
+      expect(global.fetch).toHaveBeenCalledWith("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: expect.stringContaining("Test question"),
+      });
     });
-  });
 
-  describe("About Command", () => {
-    it("displays about information when 'about' is entered", () => {
+    it("clears input after submitting", async () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "about" } });
-      fireEvent.keyDown(input, { key: "Enter" });
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Test question" } });
 
-      expect(screen.getByText("Dheeraj Yadla:")).toBeInTheDocument();
-      expect(screen.getByText("Software Engineer turned AI Whisperer.")).toBeInTheDocument();
-    });
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
 
-    it("displays about when about button is clicked", () => {
-      render(<Terminal />);
-      fireEvent.click(screen.getByRole("button", { name: "[about]" }));
-
-      expect(screen.getByText("Dheeraj Yadla:")).toBeInTheDocument();
-    });
-  });
-
-  describe("Skills Command", () => {
-    it("displays skills information when 'skills' is entered", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "skills" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      expect(screen.getByText("Technical Capabilities:")).toBeInTheDocument();
-      expect(screen.getByText(/\[Frontend\]\s+React, TypeScript, Tailwind/)).toBeInTheDocument();
-    });
-
-    it("displays skills when skills button is clicked", () => {
-      render(<Terminal />);
-      fireEvent.click(screen.getByRole("button", { name: "[skills]" }));
-
-      expect(screen.getByText("Technical Capabilities:")).toBeInTheDocument();
-    });
-  });
-
-  describe("Contact Command", () => {
-    it("displays contact information when 'contact' is entered", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "contact" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      expect(screen.getByText("Contact Information:")).toBeInTheDocument();
-      expect(screen.getByText("Email: dheerajyadla@gmail.com")).toBeInTheDocument();
-    });
-
-    it("displays contact when contact button is clicked", () => {
-      render(<Terminal />);
-      fireEvent.click(screen.getByRole("button", { name: "[contact]" }));
-
-      expect(screen.getByText("Contact Information:")).toBeInTheDocument();
-    });
-  });
-
-  describe("Clear Command", () => {
-    it("clears all lines when 'clear' is entered", () => {
-      render(<Terminal initialLines={["Test line"]} />);
-      expect(screen.getByText("Test line")).toBeInTheDocument();
-
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "clear" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      expect(screen.queryByText("Test line")).not.toBeInTheDocument();
-    });
-
-    it("clears when clear button is clicked", () => {
-      render(<Terminal initialLines={["Test line"]} />);
-      fireEvent.click(screen.getByRole("button", { name: "[clear]" }));
-
-      expect(screen.queryByText("Test line")).not.toBeInTheDocument();
-    });
-  });
-
-  describe("Unknown Command", () => {
-    it("displays error message for unknown commands", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "unknown" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      expect(screen.getByText("Command not found: unknown. Type 'help' for available commands.")).toBeInTheDocument();
-    });
-  });
-
-  describe("Command History Navigation", () => {
-    it("navigates up through command history", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-
-      // Enter some commands
-      fireEvent.change(input, { target: { value: "help" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-      fireEvent.change(input, { target: { value: "about" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      // Navigate up
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      expect(input).toHaveValue("about");
-
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      expect(input).toHaveValue("help");
-    });
-
-    it("navigates down through command history", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-
-      // Enter some commands
-      fireEvent.change(input, { target: { value: "help" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-      fireEvent.change(input, { target: { value: "about" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      // Navigate up then down
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      fireEvent.keyDown(input, { key: "ArrowDown" });
-      expect(input).toHaveValue("about");
-    });
-
-    it("clears input when navigating past end of history", () => {
-      render(<Terminal />);
-      const input = screen.getByRole("textbox");
-
-      fireEvent.change(input, { target: { value: "help" } });
-      fireEvent.keyDown(input, { key: "Enter" });
-
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      fireEvent.keyDown(input, { key: "ArrowDown" });
       expect(input).toHaveValue("");
     });
 
-    it("does not navigate when history is empty", () => {
+    it("does not submit empty messages", () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
 
-      fireEvent.change(input, { target: { value: "test" } });
-      fireEvent.keyDown(input, { key: "ArrowUp" });
-      expect(input).toHaveValue("test");
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
+
+      expect(global.fetch).not.toHaveBeenCalled();
     });
   });
 
-  describe("Case Insensitivity", () => {
-    it("handles uppercase commands", () => {
+  describe("Suggested Prompts", () => {
+    it("sends message when prompt is clicked", () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "HELP" } });
-      fireEvent.keyDown(input, { key: "Enter" });
+      fireEvent.click(screen.getByText("Who is Dheeraj?"));
 
-      expect(screen.getByText("Available commands:")).toBeInTheDocument();
+      expect(global.fetch).toHaveBeenCalledWith("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: expect.stringContaining("Who is Dheeraj?"),
+      });
     });
 
-    it("handles mixed case commands", () => {
+    it("updates suggestions after receiving response", async () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.change(input, { target: { value: "HeLp" } });
-      fireEvent.keyDown(input, { key: "Enter" });
+      fireEvent.click(screen.getByText("Who is Dheeraj?"));
 
-      expect(screen.getByText("Available commands:")).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByText("Follow up 1")).toBeInTheDocument();
+        expect(screen.getByText("Follow up 2")).toBeInTheDocument();
+        expect(screen.getByText("Follow up 3")).toBeInTheDocument();
+      });
     });
   });
 
-  describe("Empty Command", () => {
-    it("does not add error for empty command", () => {
+  describe("Message Display", () => {
+    it("displays user messages", async () => {
       render(<Terminal />);
-      const input = screen.getByRole("textbox");
-      fireEvent.keyDown(input, { key: "Enter" });
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Test message" } });
 
-      expect(screen.queryByText(/Command not found/)).not.toBeInTheDocument();
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
+
+      expect(screen.getByText("Test message")).toBeInTheDocument();
+    });
+
+    it("shows typing indicator while waiting for response", async () => {
+      // Make fetch hang
+      (global.fetch as ReturnType<typeof vi.fn>).mockImplementation(
+        () => new Promise(() => {})
+      );
+
+      render(<Terminal />);
+      fireEvent.click(screen.getByText("Who is Dheeraj?"));
+
+      // Check for typing indicator (three dots)
+      expect(screen.getAllByText("•").length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  describe("Clear Chat", () => {
+    it("shows clear chat button after conversation", async () => {
+      render(<Terminal />);
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Test" } });
+
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
+
+      // Wait for response to complete
+      await waitFor(() => {
+        expect(screen.getByText("clear chat")).toBeInTheDocument();
+      });
+    });
+
+    it("resets chat when clear button is clicked", async () => {
+      render(<Terminal />);
+      const input = screen.getByPlaceholderText("Ask about Dheeraj...");
+      fireEvent.change(input, { target: { value: "Test" } });
+
+      const form = input.closest("form")!;
+      fireEvent.submit(form);
+
+      await waitFor(() => {
+        expect(screen.getByText("clear chat")).toBeInTheDocument();
+      });
+
+      fireEvent.click(screen.getByText("clear chat"));
+
+      // Should be back to initial state
+      expect(screen.queryByText("Test")).not.toBeInTheDocument();
+      expect(screen.getByText("Who is Dheeraj?")).toBeInTheDocument();
+    });
+  });
+
+  describe("Error Handling", () => {
+    it("shows error message on API failure", async () => {
+      (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
+        ok: false,
+      });
+
+      render(<Terminal />);
+      fireEvent.click(screen.getByText("Who is Dheeraj?"));
+
+      await waitFor(() => {
+        expect(
+          screen.getByText(
+            /Oops, something went wrong. Try again or reach out directly/
+          )
+        ).toBeInTheDocument();
+      });
     });
   });
 });

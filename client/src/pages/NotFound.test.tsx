@@ -30,18 +30,26 @@ describe("NotFound", () => {
 
     it("displays the error message with current pathname", () => {
       render(<NotFound />);
-      expect(screen.getByText(/A fatal exception 404 has occurred at/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/A fatal exception 404 has occurred at/)
+      ).toBeInTheDocument();
     });
 
     it("displays error instructions", () => {
       render(<NotFound />);
-      expect(screen.getByText(/Press any key to terminate the current application/)).toBeInTheDocument();
-      expect(screen.getByText(/Press CTRL\+ALT\+DEL again to restart your computer/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Press any key to terminate the current application/)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(/Press CTRL\+ALT\+DEL again to restart your computer/)
+      ).toBeInTheDocument();
     });
 
     it("displays humorous final instruction", () => {
       render(<NotFound />);
-      expect(screen.getByText(/Actually, just click the button below to go home/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Actually, just click the button below to go home/)
+      ).toBeInTheDocument();
     });
 
     it("displays technical information", () => {
@@ -51,12 +59,16 @@ describe("NotFound", () => {
 
     it("displays blinking cursor prompt", () => {
       render(<NotFound />);
-      expect(screen.getByText("Press any key to continue _")).toBeInTheDocument();
+      expect(
+        screen.getByText("Press any key to continue _")
+      ).toBeInTheDocument();
     });
 
     it("renders return to safety button", () => {
       render(<NotFound />);
-      expect(screen.getByRole("button", { name: "RETURN_TO_SAFETY" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "RETURN_TO_SAFETY" })
+      ).toBeInTheDocument();
     });
   });
 

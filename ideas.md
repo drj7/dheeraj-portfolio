@@ -17,6 +17,7 @@ High contrast neon green/amber on deep black, representing the "old world" of te
 "Broken Grid". Elements overlap, containers look like draggable terminal windows, and sections might be slightly tilted or "corrupted". It's not a clean dashboard; it's a hacked workspace.
 
 **Signature Elements**:
+
 1.  **The "Prompt" Bar**: A persistent search/command bar that changes the site's content based on "prompts" (nav links).
 2.  **Glitch Text**: Headings that occasionally scramble and reassemble.
 3.  **ASCII Art to Image**: Visuals that transition from ASCII representations to high-res AI images on hover.
@@ -28,11 +29,12 @@ High contrast neon green/amber on deep black, representing the "old world" of te
 Stuttering, frame-skipping animations for the "engineering" parts, smooth, fluid morphing for the "AI" parts.
 
 **Typography System**:
-*   **Display**: `Space Mono` or `VT323` (Monospaced, coding vibe).
-*   **Body**: `Inter` or `Roboto` (Clean, readable, contrasting with the display).
-</text>
-<probability>0.08</probability>
-</response>
+
+- **Display**: `Space Mono` or `VT323` (Monospaced, coding vibe).
+- **Body**: `Inter` or `Roboto` (Clean, readable, contrasting with the display).
+  </text>
+  <probability>0.08</probability>
+  </response>
 
 <response>
 <text>
@@ -51,6 +53,7 @@ Deep purples, midnight blues, and glowing golds/cyans. It feels like a wizard's 
 "Floating Canvas". No hard borders or distinct sections. Elements float in a void, connected by faint constellations or neural network lines.
 
 **Signature Elements**:
+
 1.  **The Crystal Ball**: A central interactive element (maybe a WebGL sphere or a looped video) that swirls when you hover over "projects".
 2.  **Potion Bottles**: Skills represented as ingredients (e.g., "Python Extract", "Essence of GPT-4").
 3.  **Scrolls**: Resume/Experience section unfurls like a magical scroll.
@@ -62,11 +65,12 @@ Deep purples, midnight blues, and glowing golds/cyans. It feels like a wizard's 
 Slow, breathing pulses. Elements drift slightly. Transitions are dissolve-y and misty.
 
 **Typography System**:
-*   **Display**: `Cinzel` or `Cormorant Garamond` (Elegant, slightly magical/historical).
-*   **Body**: `Quicksand` or `Lato` (Rounded, friendly, modern).
-</text>
-<probability>0.07</probability>
-</response>
+
+- **Display**: `Cinzel` or `Cormorant Garamond` (Elegant, slightly magical/historical).
+- **Body**: `Quicksand` or `Lato` (Rounded, friendly, modern).
+  </text>
+  <probability>0.07</probability>
+  </response>
 
 <response>
 <text>
@@ -85,6 +89,7 @@ Slow, breathing pulses. Elements drift slightly. Transitions are dissolve-y and 
 "Masonry of Chaos". distinct blocks of content with thick black borders, arranged in a dense, newspaper-like layout.
 
 **Signature Elements**:
+
 1.  **Stickers**: "Verified AI Whisperer" badges, "0 lines of code written today" stickers that look slapped on the screen.
 2.  **Marquee Text**: Scrolling banners with funny one-liners ("Will code for food... wait, no, will prompt for food").
 3.  **Pop-ups**: (Non-intrusive) modal-style cards that pop up to explain projects with a "Did you know?" vibe.
@@ -96,8 +101,9 @@ Slow, breathing pulses. Elements drift slightly. Transitions are dissolve-y and 
 Snappy, instant transitions. No fading. Things slide in from off-screen with a bounce.
 
 **Typography System**:
-*   **Display**: `Chivo` or `Archivo Black` (Heavy, loud, industrial).
-*   **Body**: `Courier Prime` (Typewriter style, adding to the "manifesto" feel).
-</text>
-<probability>0.09</probability>
-</response>
+
+- **Display**: `Chivo` or `Archivo Black` (Heavy, loud, industrial).
+- **Body**: `Courier Prime` (Typewriter style, adding to the "manifesto" feel).
+  </text>
+  <probability>0.09</probability>
+  </response>

@@ -122,71 +122,71 @@ ${DHEERAJ_CONTEXT}
 `;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    // Only allow POST requests
-    if (req.method !== "POST") {
-        return res.status(405).json({ error: "Method not allowed" });
+  // Only allow POST requests
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: "API key not configured" });
+  }
+
+  try {
+    const { message, history = [] } = req.body;
+
+    if (!message || typeof message !== "string") {
+      return res.status(400).json({ error: "Message is required" });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-        return res.status(500).json({ error: "API key not configured" });
+    // Build conversation history for context
+    const contents = [
+      ...history.map((msg: { role: string; content: string }) => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }],
+      })),
+      {
+        role: "user",
+        parts: [{ text: message }],
+      },
+    ];
+
+    // Call Gemini API for main response
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents,
+          systemInstruction: {
+            parts: [{ text: SYSTEM_PROMPT }],
+          },
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error("Gemini API error:", errorData);
+      return res.status(500).json({ error: "Failed to get AI response" });
     }
 
-    try {
-        const { message, history = [] } = req.body;
+    const data = await response.json();
+    const aiResponse =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "I'm sorry, I couldn't generate a response. Please try again.";
 
-        if (!message || typeof message !== "string") {
-            return res.status(400).json({ error: "Message is required" });
-        }
-
-        // Build conversation history for context
-        const contents = [
-            ...history.map((msg: { role: string; content: string }) => ({
-                role: msg.role === "assistant" ? "model" : "user",
-                parts: [{ text: msg.content }],
-            })),
-            {
-                role: "user",
-                parts: [{ text: message }],
-            },
-        ];
-
-        // Call Gemini API for main response
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contents,
-                    systemInstruction: {
-                        parts: [{ text: SYSTEM_PROMPT }],
-                    },
-                    generationConfig: {
-                        temperature: 0.7,
-                        topK: 40,
-                        topP: 0.95,
-                        maxOutputTokens: 1024,
-                    },
-                }),
-            }
-        );
-
-        if (!response.ok) {
-            const errorData = await response.text();
-            console.error("Gemini API error:", errorData);
-            return res.status(500).json({ error: "Failed to get AI response" });
-        }
-
-        const data = await response.json();
-        const aiResponse =
-            data.candidates?.[0]?.content?.parts?.[0]?.text ||
-            "I'm sorry, I couldn't generate a response. Please try again.";
-
-        // Generate follow-up suggestions based on conversation
-        const suggestionPrompt = `Based on this conversation about Dheeraj Yadla, suggest exactly 3 short follow-up questions the user might want to ask next. The questions should be different from what was already asked and explore new topics about Dheeraj.
+    // Generate follow-up suggestions based on conversation
+    const suggestionPrompt = `Based on this conversation about Dheeraj Yadla, suggest exactly 3 short follow-up questions the user might want to ask next. The questions should be different from what was already asked and explore new topics about Dheeraj.
 
 Recent conversation:
 User: ${message}
@@ -194,43 +194,48 @@ Assistant: ${aiResponse}
 
 Return ONLY a JSON array of 3 short questions (max 5 words each), nothing else. Example: ["What projects did he build?", "Where is he based?", "What are his hobbies?"]`;
 
-        const suggestionsResponse = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ role: "user", parts: [{ text: suggestionPrompt }] }],
-                    generationConfig: {
-                        temperature: 0.8,
-                        maxOutputTokens: 100,
-                    },
-                }),
-            }
-        );
+    const suggestionsResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: suggestionPrompt }] }],
+          generationConfig: {
+            temperature: 0.8,
+            maxOutputTokens: 100,
+          },
+        }),
+      }
+    );
 
-        let suggestions = ["What are his skills?", "Tell me about his work", "How can I contact him?"];
+    let suggestions = [
+      "What are his skills?",
+      "Tell me about his work",
+      "How can I contact him?",
+    ];
 
-        if (suggestionsResponse.ok) {
-            try {
-                const suggestData = await suggestionsResponse.json();
-                const suggestText = suggestData.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                // Parse JSON array from response
-                const match = suggestText.match(/\[[\s\S]*?\]/);
-                if (match) {
-                    const parsed = JSON.parse(match[0]);
-                    if (Array.isArray(parsed) && parsed.length >= 3) {
-                        suggestions = parsed.slice(0, 3);
-                    }
-                }
-            } catch {
-                // Use default suggestions if parsing fails
-            }
+    if (suggestionsResponse.ok) {
+      try {
+        const suggestData = await suggestionsResponse.json();
+        const suggestText =
+          suggestData.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        // Parse JSON array from response
+        const match = suggestText.match(/\[[\s\S]*?\]/);
+        if (match) {
+          const parsed = JSON.parse(match[0]);
+          if (Array.isArray(parsed) && parsed.length >= 3) {
+            suggestions = parsed.slice(0, 3);
+          }
         }
-
-        return res.status(200).json({ response: aiResponse, suggestions });
-    } catch (error) {
-        console.error("Chat API error:", error);
-        return res.status(500).json({ error: "Internal server error" });
+      } catch {
+        // Use default suggestions if parsing fails
+      }
     }
+
+    return res.status(200).json({ response: aiResponse, suggestions });
+  } catch (error) {
+    console.error("Chat API error:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }

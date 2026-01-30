@@ -13,7 +13,7 @@
 
 **Software Engineer → AI Whisperer**
 
-*I used to write thousands of lines of code to center a div. Now I ask the AI nicely and it builds me a spaceship.*
+_I used to write thousands of lines of code to center a div. Now I ask the AI nicely and it builds me a spaceship._
 
 [![Live Demo](https://img.shields.io/badge/LIVE-DEMO-00ff00?style=for-the-badge&logo=vercel&logoColor=black)](https://www.dheerajyadla.com)
 [![GitHub](https://img.shields.io/badge/GitHub-drj7-181717?style=for-the-badge&logo=github)](https://github.com/drj7)
@@ -48,17 +48,20 @@ AI_WHISPERER_ACTIVATED
 <div align="center">
 
 ### Frontend
+
 [![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
 [![Tailwind](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
 ### UI Components
+
 [![Radix UI](https://img.shields.io/badge/Radix_UI-161618?style=flat-square&logo=radixui&logoColor=white)](https://www.radix-ui.com)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion)
 [![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=flat-square&logo=shadcnui&logoColor=white)](https://ui.shadcn.com)
 
 ### Deployment
+
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
 [![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white)](https://pnpm.io)
 
@@ -89,8 +92,8 @@ git clone https://github.com/drj7/dheeraj-portfolio.git
 # Navigate to the project
 cd dheeraj-portfolio
 
-# Install dependencies (use --legacy-peer-deps to resolve dependency conflicts)
-npm install --legacy-peer-deps
+# Install dependencies
+npm install
 
 # Start the dev server
 npm run dev
@@ -119,13 +122,17 @@ dheeraj-portfolio/
 
 ## `> AVAILABLE_COMMANDS`
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server with HMR |
-| `pnpm build` | Build for production |
-| `pnpm preview` | Preview production build |
-| `pnpm check` | TypeScript type checking |
-| `pnpm format` | Format code with Prettier |
+| Command                 | Description                          |
+| ----------------------- | ------------------------------------ |
+| `npm run dev`           | Start development server with HMR    |
+| `npm run build`         | Build for production                 |
+| `npm run start`         | Preview production build             |
+| `npm run preview`       | Preview production build (with host) |
+| `npm run check`         | TypeScript type checking             |
+| `npm run format`        | Format code with Prettier            |
+| `npm test`              | Run tests in watch mode              |
+| `npm run test:run`      | Run tests once                       |
+| `npm run test:coverage` | Run tests with coverage report       |
 
 ---
 

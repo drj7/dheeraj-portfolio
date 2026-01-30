@@ -20,6 +20,7 @@ pnpm format       # Format with Prettier
 This is a React SPA portfolio website with a "Retro Terminal Glitch" cyberpunk aesthetic.
 
 ### Tech Stack
+
 - **React 19** + **TypeScript** + **Vite 7**
 - **Tailwind CSS 4** with custom OKLCH color system
 - **Radix UI** components via shadcn/ui pattern
@@ -27,6 +28,7 @@ This is a React SPA portfolio website with a "Retro Terminal Glitch" cyberpunk a
 - **Framer Motion** for animations
 
 ### Directory Structure
+
 ```
 client/
 ├── src/
@@ -40,19 +42,24 @@ server/                 # Express SPA fallback (not used in Vercel deploy)
 ```
 
 ### Path Aliases
+
 - `@/*` → `client/src/*`
 - `@shared/*` → `shared/*`
 - `@assets/*` → `attached_assets/*`
 
 ### Styling
+
 Theme is locked to dark mode with neon green terminal aesthetic. Key custom CSS in `client/src/index.css`:
+
 - Glitch text animation (dual-layer clipping with cyan/magenta)
 - CRT scanline overlay effect
 - Fonts: VT323 (headings), Space Mono (body)
 
 ### Custom Components
+
 - `Terminal.tsx` - Animated terminal window with scrolling logs
 - `GlitchCard.tsx` - Project cards with hover glitch effects
 
 ### Deployment
+
 Deployed to Vercel. SPA routing configured in `vercel.json` (all routes → `/index.html`).

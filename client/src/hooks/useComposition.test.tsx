@@ -33,7 +33,9 @@ describe("useComposition", () => {
       const { result } = renderHook(() => useComposition());
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       expect(result.current.isComposing()).toBe(true);
@@ -43,13 +45,17 @@ describe("useComposition", () => {
       const { result } = renderHook(() => useComposition());
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       expect(result.current.isComposing()).toBe(true);
 
       act(() => {
-        result.current.onCompositionEnd({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionEnd({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       // Still composing immediately after compositionEnd due to Safari fix
@@ -69,7 +75,9 @@ describe("useComposition", () => {
       const stopPropagation = vi.fn();
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       act(() => {
@@ -88,7 +96,9 @@ describe("useComposition", () => {
       const stopPropagation = vi.fn();
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       act(() => {
@@ -108,7 +118,9 @@ describe("useComposition", () => {
       const stopPropagation = vi.fn();
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       act(() => {
@@ -142,10 +154,14 @@ describe("useComposition", () => {
   describe("Original Handlers", () => {
     it("calls original onCompositionStart", () => {
       const onCompositionStart = vi.fn();
-      const { result } = renderHook(() => useComposition({ onCompositionStart }));
+      const { result } = renderHook(() =>
+        useComposition({ onCompositionStart })
+      );
 
       act(() => {
-        result.current.onCompositionStart({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       expect(onCompositionStart).toHaveBeenCalled();
@@ -156,7 +172,9 @@ describe("useComposition", () => {
       const { result } = renderHook(() => useComposition({ onCompositionEnd }));
 
       act(() => {
-        result.current.onCompositionEnd({ data: "test" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionEnd({
+          data: "test",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       expect(onCompositionEnd).toHaveBeenCalled();
@@ -168,9 +186,15 @@ describe("useComposition", () => {
       const { result } = renderHook(() => useComposition());
 
       act(() => {
-        result.current.onCompositionStart({ data: "test1" } as React.CompositionEvent<HTMLInputElement>);
-        result.current.onCompositionEnd({ data: "test1" } as React.CompositionEvent<HTMLInputElement>);
-        result.current.onCompositionStart({ data: "test2" } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test1",
+        } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionEnd({
+          data: "test1",
+        } as React.CompositionEvent<HTMLInputElement>);
+        result.current.onCompositionStart({
+          data: "test2",
+        } as React.CompositionEvent<HTMLInputElement>);
       });
 
       // Should still be composing because we started a new composition

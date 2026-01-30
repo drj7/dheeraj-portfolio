@@ -11,7 +11,11 @@ import { useState } from "react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/drj7", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/dheerajyadla", label: "LinkedIn" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/dheerajyadla",
+    label: "LinkedIn",
+  },
   { icon: Twitter, href: "https://x.com/dherj", label: "Twitter" },
 ];
 
@@ -45,13 +49,16 @@ export function MobileNav() {
         className="w-[280px] border-primary/20 bg-background/95 backdrop-blur-md px-6"
       >
         <SheetHeader>
-          <SheetTitle className="font-display text-2xl text-primary glitch-text" data-text="MENU">
+          <SheetTitle
+            className="font-display text-2xl text-primary glitch-text"
+            data-text="MENU"
+          >
             MENU
           </SheetTitle>
         </SheetHeader>
 
         <nav className="flex flex-col gap-4 mt-8">
-          {navLinks.map((link) => (
+          {navLinks.map(link => (
             <a
               key={link.href}
               href={link.href}
@@ -64,9 +71,11 @@ export function MobileNav() {
         </nav>
 
         <div className="mt-auto pt-8 border-t border-primary/20">
-          <p className="font-mono text-xs text-muted-foreground mb-4">CONNECT</p>
+          <p className="font-mono text-xs text-muted-foreground mb-4">
+            CONNECT
+          </p>
           <div className="flex gap-4">
-            {socialLinks.map((social) => (
+            {socialLinks.map(social => (
               <a
                 key={social.label}
                 href={social.href}

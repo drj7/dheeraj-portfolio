@@ -10,7 +10,11 @@ import { toast } from "sonner";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/drj7", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/dheerajyadla", label: "LinkedIn" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/dheerajyadla",
+    label: "LinkedIn",
+  },
   { icon: Twitter, href: "https://x.com/dherj", label: "Twitter" },
 ];
 
@@ -56,18 +60,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const [terminalLines, setTerminalLines] = useState([
-    "Initializing system...",
-    "Loading developer_skills.json...",
-    "Error: Java.exe stopped working.",
-    "Rebooting into AI_Mode...",
-    "Success! Welcome to the future."
-  ]);
-
-  const addLog = (msg: string) => {
-    setTerminalLines(prev => [...prev, msg]);
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-black">
       {/* Navigation */}
@@ -76,16 +68,25 @@ export default function Home() {
           <div
             className="font-display text-3xl md:text-4xl text-primary glitch-text font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,0,0.5)] cursor-pointer"
             data-text="DHEERAJ_YADLA"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             DHEERAJ_YADLA
           </div>
           <div className="hidden md:flex gap-8 font-mono text-sm items-center">
-            <a href="#about" className="hover:text-primary transition-colors">[ ABOUT ]</a>
-            <a href="#projects" className="hover:text-primary transition-colors">[ PROJECTS ]</a>
-            <a href="#contact" className="hover:text-primary transition-colors">[ CONTACT ]</a>
+            <a href="#about" className="hover:text-primary transition-colors">
+              [ ABOUT ]
+            </a>
+            <a
+              href="#projects"
+              className="hover:text-primary transition-colors"
+            >
+              [ PROJECTS ]
+            </a>
+            <a href="#contact" className="hover:text-primary transition-colors">
+              [ CONTACT ]
+            </a>
             <div className="flex gap-3 ml-4 border-l border-primary/20 pl-4">
-              {socialLinks.map((social) => (
+              {socialLinks.map(social => (
                 <a
                   key={social.label}
                   href={social.href}
@@ -104,7 +105,10 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="main-content" className="relative min-h-screen flex items-center pt-16">
+      <section
+        id="main-content"
+        className="relative min-h-screen flex items-center pt-16"
+      >
         <NeuralBackground />
         <div className="absolute inset-0 z-0 opacity-30">
           <img
@@ -130,32 +134,36 @@ export default function Home() {
               SYSTEM_STATUS: ONLINE
             </div>
             <h1 className="text-3xl md:text-5xl font-display leading-tight">
-              SOFTWARE<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">ENGINEER</span><br />
-              TURNED<br />
-              <span className="glitch-text text-pink-500" data-text="AI_WHISPERER">AI_WHISPERER</span>
+              SOFTWARE
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">
+                ENGINEER
+              </span>
+              <br />
+              TURNED
+              <br />
+              <span
+                className="glitch-text text-pink-500"
+                data-text="AI_WHISPERER"
+              >
+                AI_WHISPERER
+              </span>
             </h1>
             <p className="text-lg text-muted-foreground font-mono max-w-xl">
-              I used to write thousands of lines of code to center a div.
-              Now I ask the AI nicely and it builds me a spaceship.
+              I used to write thousands of lines of code to center a div. Now I
+              ask the AI nicely and it builds me a spaceship.
             </p>
             <div className="flex gap-4">
               <Button
                 className="bg-primary text-black hover:bg-primary/90 font-mono rounded-none border-2 border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all"
-                onClick={() => {
-                  addLog("Executing: contact_me.sh");
-                  scrollToSection("contact");
-                }}
+                onClick={() => scrollToSection("contact")}
               >
                 INITIATE_CONTACT
               </Button>
               <Button
                 variant="outline"
                 className="font-mono rounded-none border-primary/50 text-primary hover:bg-primary/10"
-                onClick={() => {
-                  addLog("Accessing: /var/log/bio.txt");
-                  scrollToSection("about");
-                }}
+                onClick={() => scrollToSection("about")}
               >
                 VIEW_LOGS
               </Button>
@@ -163,24 +171,28 @@ export default function Home() {
           </div>
 
           <div className="w-full lg:block mt-8 lg:mt-0">
-            <Terminal initialLines={terminalLines} />
+            <Terminal />
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 border-t border-primary/20 bg-black/50">
+      <section
+        id="about"
+        className="py-24 border-t border-primary/20 bg-black/50"
+      >
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
-              <div className={`absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 blur-xl transition-opacity duration-1000 ${avatarGlitch ? "opacity-60" : "opacity-20"}`} />
+              <div
+                className={`absolute -inset-4 bg-gradient-to-r from-primary to-pink-500 blur-xl transition-opacity duration-1000 ${avatarGlitch ? "opacity-60" : "opacity-20"}`}
+              />
               <img
                 src="/images/avatar.jpg"
                 alt="Dheeraj Yadla"
                 className={`relative w-full max-w-md mx-auto border-2 border-primary/50 transition-all duration-700 ease-in-out ${avatarGlitch ? "grayscale-0 scale-[1.02]" : "grayscale"}`}
                 loading="lazy"
               />
-
             </div>
 
             <div className="space-y-8">
@@ -189,16 +201,23 @@ export default function Home() {
               </h2>
               <div className="space-y-4 font-mono text-muted-foreground">
                 <p>
-                  <strong className="text-white">Day 1:</strong> I didn't actually have a degree in Computer Science. But I thought I was ready to change the world with Java anyway.
+                  <strong className="text-white">Day 1:</strong> I didn't
+                  actually have a degree in Computer Science. But I thought I
+                  was ready to change the world with Java anyway.
                 </p>
                 <p>
-                  <strong className="text-white">Day 1,402:</strong> After debugging a NullPointerException for 6 hours, I realized there had to be a better way.
+                  <strong className="text-white">Day 1,402:</strong> After
+                  debugging a NullPointerException for 6 hours, I realized there
+                  had to be a better way.
                 </p>
                 <p>
-                  <strong className="text-white">Day 1,403:</strong> I discovered LLMs. I typed "Fix my code" and it worked. I felt like a wizard.
+                  <strong className="text-white">Day 1,403:</strong> I
+                  discovered LLMs. I typed "Fix my code" and it worked. I felt
+                  like a wizard.
                 </p>
                 <p>
-                  Now, I bridge the gap between human intent and machine execution. I don't just write code; I curate intelligence.
+                  Now, I bridge the gap between human intent and machine
+                  execution. I don't just write code; I curate intelligence.
                 </p>
               </div>
 
@@ -208,13 +227,28 @@ export default function Home() {
                   <span className="text-lg">📍</span> CURRENT_LOCATION
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Based in the <span className="text-cyan-400">San Francisco Bay Area</span>, living with my wife and our dog. When I'm not prompting robots, you'll find me:
+                  Based in the{" "}
+                  <span className="text-cyan-400">San Francisco Bay Area</span>,
+                  living with my wife and our dog. When I'm not prompting
+                  robots, you'll find me:
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                  <li className="flex items-center gap-2"><span className="text-primary">🏔️</span> Exploring the outdoors & hiking trails</li>
-                  <li className="flex items-center gap-2"><span className="text-primary">✈️</span> Traveling and discovering new places</li>
-                  <li className="flex items-center gap-2"><span className="text-primary">💪</span> Staying fit at the gym</li>
-                  <li className="flex items-center gap-2"><span className="text-primary">🤖</span> Tinkering with the latest tech</li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">🏔️</span> Exploring the
+                    outdoors & hiking trails
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">✈️</span> Traveling and
+                    discovering new places
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">💪</span> Staying fit at the
+                    gym
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">🤖</span> Tinkering with the
+                    latest tech
+                  </li>
                 </ul>
               </div>
 
@@ -229,7 +263,9 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className="p-4 border border-pink-500/20 bg-pink-500/5">
-                  <h3 className="text-pink-500 mb-2 font-display">NEW_POWERS</h3>
+                  <h3 className="text-pink-500 mb-2 font-display">
+                    NEW_POWERS
+                  </h3>
                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                     <li>Prompt Engineering</li>
                     <li>AI Agent Orchestration</li>
@@ -253,37 +289,70 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <GlitchCard title="Enterprise To-Do List" className="h-full">
               <p className="text-muted-foreground mb-4">
-                A simple checklist app powered by 12 microservices, a Kafka event bus, and a Kubernetes cluster. Over-engineering at its finest.
+                A simple checklist app powered by 12 microservices, a Kafka
+                event bus, and a Kubernetes cluster. Over-engineering at its
+                finest.
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">React</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Node.js</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">PostgreSQL</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Docker</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  React
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Node.js
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  PostgreSQL
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Docker
+                </span>
               </div>
             </GlitchCard>
 
             <GlitchCard title="The 'Scale' Social Network" className="h-full">
               <p className="text-muted-foreground mb-4">
-                A MERN stack social platform designed to handle millions of users, currently hosting just me and my mom. 99.99% uptime (when I'm awake).
+                A MERN stack social platform designed to handle millions of
+                users, currently hosting just me and my mom. 99.99% uptime (when
+                I'm awake).
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">MongoDB</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Express</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">React</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Node.js</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  MongoDB
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Express
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  React
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Node.js
+                </span>
               </div>
             </GlitchCard>
 
-            <GlitchCard title="E-Commerce for Time Travelers" className="h-full">
+            <GlitchCard
+              title="E-Commerce for Time Travelers"
+              className="h-full"
+            >
               <p className="text-muted-foreground mb-4">
-                A Next.js shop where you can buy Bitcoin in 2010. Features a 'Grandfather Paradox' prevention algorithm (it just deletes your account).
+                A Next.js shop where you can buy Bitcoin in 2010. Features a
+                'Grandfather Paradox' prevention algorithm (it just deletes your
+                account).
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Next.js</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Stripe</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Tailwind</span>
-                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">Vercel</span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Next.js
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Stripe
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Tailwind
+                </span>
+                <span className="text-xs border border-primary/30 px-2 py-1 text-primary">
+                  Vercel
+                </span>
               </div>
             </GlitchCard>
           </div>
@@ -291,12 +360,14 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 border-t border-primary/20 bg-black/50">
+      <section
+        id="contact"
+        className="py-24 border-t border-primary/20 bg-black/50"
+      >
         <div className="container max-w-2xl text-center">
           <h2 className="text-4xl text-primary mb-8">
             <span className="text-pink-500">03.</span> INITIATE_UPLINK
           </h2>
-
 
           <div className="space-y-6">
             <Button
@@ -310,7 +381,7 @@ export default function Home() {
 
             <div className="flex flex-col items-center gap-6 pt-8">
               <div className="flex gap-4">
-                {socialLinks.map((social) => (
+                {socialLinks.map(social => (
                   <a
                     key={social.label}
                     href={social.href}

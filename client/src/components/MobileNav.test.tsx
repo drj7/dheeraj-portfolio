@@ -6,7 +6,9 @@ describe("MobileNav", () => {
   describe("Rendering", () => {
     it("renders the mobile menu trigger button", () => {
       render(<MobileNav />);
-      expect(screen.getByRole("button", { name: "Open menu" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Open menu" })
+      ).toBeInTheDocument();
     });
 
     it("does not render sheet content initially", () => {
@@ -87,9 +89,18 @@ describe("MobileNav", () => {
 
       await screen.findByText("CONNECT");
 
-      expect(screen.getByLabelText("GitHub")).toHaveAttribute("href", "https://github.com/drj7");
-      expect(screen.getByLabelText("LinkedIn")).toHaveAttribute("href", "https://www.linkedin.com/in/dheerajyadla");
-      expect(screen.getByLabelText("Twitter")).toHaveAttribute("href", "https://x.com/dherj");
+      expect(screen.getByLabelText("GitHub")).toHaveAttribute(
+        "href",
+        "https://github.com/drj7"
+      );
+      expect(screen.getByLabelText("LinkedIn")).toHaveAttribute(
+        "href",
+        "https://www.linkedin.com/in/dheerajyadla"
+      );
+      expect(screen.getByLabelText("Twitter")).toHaveAttribute(
+        "href",
+        "https://x.com/dherj"
+      );
     });
 
     it("opens social links in new tab", async () => {
@@ -98,8 +109,14 @@ describe("MobileNav", () => {
 
       await screen.findByText("CONNECT");
 
-      expect(screen.getByLabelText("GitHub")).toHaveAttribute("target", "_blank");
-      expect(screen.getByLabelText("GitHub")).toHaveAttribute("rel", "noopener noreferrer");
+      expect(screen.getByLabelText("GitHub")).toHaveAttribute(
+        "target",
+        "_blank"
+      );
+      expect(screen.getByLabelText("GitHub")).toHaveAttribute(
+        "rel",
+        "noopener noreferrer"
+      );
     });
   });
 });

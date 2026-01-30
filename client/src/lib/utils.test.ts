@@ -86,7 +86,9 @@ describe("cn utility function", () => {
     });
 
     it("preserves non-conflicting classes", () => {
-      expect(cn("p-4 text-red-500", "m-2 bg-blue-500")).toBe("p-4 text-red-500 m-2 bg-blue-500");
+      expect(cn("p-4 text-red-500", "m-2 bg-blue-500")).toBe(
+        "p-4 text-red-500 m-2 bg-blue-500"
+      );
     });
 
     it("resolves border radius conflicts", () => {
@@ -103,7 +105,9 @@ describe("cn utility function", () => {
     });
 
     it("handles responsive modifiers", () => {
-      expect(cn("text-sm", "md:text-lg", "lg:text-xl")).toBe("text-sm md:text-lg lg:text-xl");
+      expect(cn("text-sm", "md:text-lg", "lg:text-xl")).toBe(
+        "text-sm md:text-lg lg:text-xl"
+      );
     });
 
     it("handles state modifiers", () => {
@@ -113,11 +117,15 @@ describe("cn utility function", () => {
     });
 
     it("handles dark mode modifiers", () => {
-      expect(cn("bg-white", "dark:bg-gray-900")).toBe("bg-white dark:bg-gray-900");
+      expect(cn("bg-white", "dark:bg-gray-900")).toBe(
+        "bg-white dark:bg-gray-900"
+      );
     });
 
     it("resolves conflicts within same modifier", () => {
-      expect(cn("hover:bg-red-500", "hover:bg-blue-500")).toBe("hover:bg-blue-500");
+      expect(cn("hover:bg-red-500", "hover:bg-blue-500")).toBe(
+        "hover:bg-blue-500"
+      );
     });
 
     it("handles arbitrary values", () => {
@@ -135,7 +143,9 @@ describe("cn utility function", () => {
     });
 
     it("handles very long class lists", () => {
-      const classes = Array(100).fill("class").map((c, i) => `${c}-${i}`);
+      const classes = Array(100)
+        .fill("class")
+        .map((c, i) => `${c}-${i}`);
       const result = cn(...classes);
       expect(result.split(" ").length).toBe(100);
     });

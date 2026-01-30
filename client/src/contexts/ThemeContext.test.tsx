@@ -173,7 +173,9 @@ describe("ThemeContext", () => {
 
   describe("useTheme Hook", () => {
     it("throws error when used outside ThemeProvider", () => {
-      const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+      const consoleError = vi
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
 
       expect(() => {
         renderHook(() => useTheme());

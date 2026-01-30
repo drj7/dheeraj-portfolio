@@ -21,7 +21,9 @@ describe("GlitchCard", () => {
         </GlitchCard>
       );
 
-      expect(screen.getByRole("heading", { name: "Test Title" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: "Test Title" })
+      ).toBeInTheDocument();
     });
 
     it("does not render title when not provided", () => {

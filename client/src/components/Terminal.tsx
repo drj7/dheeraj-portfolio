@@ -27,7 +27,8 @@ export function Terminal({ className }: TerminalProps) {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(INITIAL_PROMPTS);
+  const [suggestedPrompts, setSuggestedPrompts] =
+    useState<string[]>(INITIAL_PROMPTS);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,14 +47,14 @@ export function Terminal({ className }: TerminalProps) {
 
     const userMessage = message.trim();
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setMessages(prev => [...prev, { role: "user", content: userMessage }]);
     setIsTyping(true);
 
     try {
       const history = messages
-        .filter((m) => m.role !== "system")
+        .filter(m => m.role !== "system")
         .slice(-10)
-        .map((m) => ({ role: m.role, content: m.content }));
+        .map(m => ({ role: m.role, content: m.content }));
 
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -73,7 +74,7 @@ export function Terminal({ className }: TerminalProps) {
       typeWriterEffect(data.response);
     } catch {
       setIsTyping(false);
-      setMessages((prev) => [
+      setMessages(prev => [
         ...prev,
         {
           role: "assistant",
@@ -86,10 +87,10 @@ export function Terminal({ className }: TerminalProps) {
 
   const typeWriterEffect = (text: string) => {
     let i = 0;
-    setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+    setMessages(prev => [...prev, { role: "assistant", content: "" }]);
 
     const interval = setInterval(() => {
-      setMessages((prev) => {
+      setMessages(prev => {
         const newMessages = [...prev];
         newMessages[newMessages.length - 1].content = text.substring(0, i + 1);
         return newMessages;
@@ -187,7 +188,7 @@ export function Terminal({ className }: TerminalProps) {
             {suggestedPrompts.map((prompt: string, i: number) => (
               <button
                 key={`${prompt}-${i}`}
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   sendMessage(prompt);
                 }}
@@ -205,7 +206,7 @@ export function Terminal({ className }: TerminalProps) {
             ref={inputRef}
             type="text"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             disabled={isTyping}
             placeholder="Ask about Dheeraj..."
             className="flex-1 bg-[#111] border border-[#222] rounded px-2.5 py-1.5 text-[#999] text-[13px] placeholder:text-[#333] focus:outline-none focus:border-[#333] transition-colors disabled:opacity-50"
@@ -234,7 +235,7 @@ export function Terminal({ className }: TerminalProps) {
         </form>
         {messages.length > 2 && !isTyping && (
           <button
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               setMessages([
                 { role: "system", content: "dheeraj-ai • powered by gemini" },
@@ -256,4 +257,3 @@ export function Terminal({ className }: TerminalProps) {
     </div>
   );
 }
-
