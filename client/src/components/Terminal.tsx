@@ -226,6 +226,25 @@ export function Terminal({ className }: TerminalProps) {
             </svg>
           </button>
         </form>
+        {messages.length > 2 && !isTyping && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setMessages([
+                { role: "system", content: "dheeraj-ai • powered by gemini" },
+                {
+                  role: "assistant",
+                  content:
+                    "Hey! I'm Dheeraj's AI assistant. Ask me anything about his background, skills, or experience.",
+                },
+              ]);
+              setInput("");
+            }}
+            className="text-[10px] text-[#444] hover:text-[#666] transition-colors mt-1.5 text-center w-full"
+          >
+            clear chat
+          </button>
+        )}
       </div>
     </div>
   );

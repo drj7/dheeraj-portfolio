@@ -73,7 +73,11 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-primary/20 bg-background/95 backdrop-blur-sm transition-colors duration-300">
         <div className="container flex items-center justify-between h-16">
-          <div className="font-display text-3xl md:text-4xl text-primary glitch-text font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]" data-text="DHEERAJ_YADLA">
+          <div
+            className="font-display text-3xl md:text-4xl text-primary glitch-text font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,255,0,0.5)] cursor-pointer"
+            data-text="DHEERAJ_YADLA"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             DHEERAJ_YADLA
           </div>
           <div className="hidden md:flex gap-8 font-mono text-sm items-center">
