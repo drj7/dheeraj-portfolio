@@ -10,11 +10,10 @@ interface Message {
   content: string;
 }
 
-const SUGGESTED_PROMPTS = [
+const INITIAL_PROMPTS = [
   "Who is Dheeraj?",
   "What are his skills?",
   "Tell me about his experience",
-  "Why should I hire him?",
 ];
 
 export function Terminal({ className }: TerminalProps) {
@@ -28,6 +27,7 @@ export function Terminal({ className }: TerminalProps) {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(INITIAL_PROMPTS);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +64,12 @@ export function Terminal({ className }: TerminalProps) {
       if (!response.ok) throw new Error("API error");
 
       const data = await response.json();
+
+      // Update suggested prompts with new suggestions from API
+      if (data.suggestions && Array.isArray(data.suggestions)) {
+        setSuggestedPrompts(data.suggestions.slice(0, 3));
+      }
+
       typeWriterEffect(data.response);
     } catch {
       setIsTyping(false);
@@ -175,12 +181,12 @@ export function Terminal({ className }: TerminalProps) {
 
       {/* Input area - compact */}
       <div className="border-t border-[#1a1a1a] p-2 bg-[#0a0a0a]">
-        {/* Suggested prompts */}
-        {messages.length <= 3 && !isTyping && (
+        {/* Suggested prompts - always visible */}
+        {!isTyping && (
           <div className="flex flex-wrap gap-1 mb-2">
-            {SUGGESTED_PROMPTS.map((prompt, i) => (
+            {suggestedPrompts.map((prompt: string, i: number) => (
               <button
-                key={i}
+                key={`${prompt}-${i}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   sendMessage(prompt);
@@ -239,6 +245,7 @@ export function Terminal({ className }: TerminalProps) {
                 },
               ]);
               setInput("");
+              setSuggestedPrompts(INITIAL_PROMPTS);
             }}
             className="text-[10px] text-[#444] hover:text-[#666] transition-colors mt-1.5 text-center w-full"
           >

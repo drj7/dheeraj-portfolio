@@ -117,7 +117,48 @@ app.post("/api/chat", async (req, res) => {
             data.candidates?.[0]?.content?.parts?.[0]?.text ||
             "Sorry, I couldn't generate a response. Try again!";
 
-        res.json({ response: aiResponse });
+        // Generate follow-up suggestions
+        const suggestionPrompt = `Based on this conversation about Dheeraj Yadla, suggest exactly 3 short follow-up questions the user might want to ask next. Questions should explore new topics.
+
+User: ${message}
+Assistant: ${aiResponse}
+
+Return ONLY a JSON array of 3 short questions (max 5 words each), nothing else. Example: ["What projects did he build?", "Where is he based?", "What are his hobbies?"]`;
+
+        const suggestionsResponse = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ role: "user", parts: [{ text: suggestionPrompt }] }],
+                    generationConfig: {
+                        temperature: 0.8,
+                        maxOutputTokens: 100,
+                    },
+                }),
+            }
+        );
+
+        let suggestions = ["What are his skills?", "Tell me about his work", "How can I contact him?"];
+
+        if (suggestionsResponse.ok) {
+            try {
+                const suggestData = await suggestionsResponse.json();
+                const suggestText = suggestData.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                const match = suggestText.match(/\[[\s\S]*?\]/);
+                if (match) {
+                    const parsed = JSON.parse(match[0]);
+                    if (Array.isArray(parsed) && parsed.length >= 3) {
+                        suggestions = parsed.slice(0, 3);
+                    }
+                }
+            } catch {
+                // Use default suggestions if parsing fails
+            }
+        }
+
+        res.json({ response: aiResponse, suggestions });
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ response: "Something went wrong. Try again!" });
